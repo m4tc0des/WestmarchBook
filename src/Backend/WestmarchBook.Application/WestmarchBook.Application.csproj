@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="Mapster" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\WestmarchBook.Communication\WestmarchBook.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\WestmarchBook.Exception\WestmarchBook.Exception.csproj" />
+    <ProjectReference Include="..\WestmarchBook.Domain\WestmarchBook.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

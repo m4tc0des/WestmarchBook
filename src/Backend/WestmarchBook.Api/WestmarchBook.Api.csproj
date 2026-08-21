@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\WestmarchBook.Communication\WestmarchBook.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\WestmarchBook.Exception\WestmarchBook.Exception.csproj" />
+    <ProjectReference Include="..\WestmarchBook.Application\WestmarchBook.Application.csproj" />
+    <ProjectReference Include="..\WestmarchBook.Infrastructure\WestmarchBook.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
