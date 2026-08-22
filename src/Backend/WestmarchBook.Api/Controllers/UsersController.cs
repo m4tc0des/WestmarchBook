@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Communication.Requests;
+using WestmarchBook.Communication.Responses;
 
 namespace WestmarchBook.Api.Controllers;
 
@@ -9,10 +10,12 @@ namespace WestmarchBook.Api.Controllers;
 public class UsersController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register([FromBody] RequestRegisterUserJson request, [FromServices] IRegisterUserAccountUseCase useCase)
+    [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Register([FromBody] RequestRegisterUserJson request, [FromServices] IRegisterUserAccountUseCase useCase)
     {
-        useCase.Execute(request);
+        var result = await useCase.Execute(request);
 
-        return Created();
+        return Created(string.Empty, result);
     }
 }
