@@ -13,7 +13,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
