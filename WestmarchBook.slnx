@@ -10,5 +10,9 @@
     <Project Path="src/Shared/WestmarchBook.Communication/WestmarchBook.Communication.csproj" />
     <Project Path="src/Shared/WestmarchBook.Exception/WestmarchBook.Exception.csproj" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/CommonTestUtilities/CommonTestUtilities.csproj" Id="b141eaa7-d86b-4772-80c4-48e08871df69" />
+    <Project Path="tests/UseCases.Tests/UseCases.Tests.csproj" Id="6ae2f668-4db1-4195-b760-1156b2dd1ac0" />
+    <Project Path="tests/Validators.Tests/Validators.Tests.csproj" Id="82142732-ea69-49ce-b72c-864162facbeb" />
+  </Folder>
 </Solution>
