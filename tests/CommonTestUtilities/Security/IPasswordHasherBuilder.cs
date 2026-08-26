@@ -1,5 +1,4 @@
 ﻿using Moq;
-using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Security.PasswordHashing;
 
 namespace CommonTestUtilities.Security;
@@ -12,12 +11,12 @@ public class IPasswordHasherBuilder
     {
         _mock = new Mock<IPasswordHasher>();
 
-        _mock.Setup(options => options.Ha(It.IsAny<string>()).Re;
+        _mock.Setup(x => x.PasswordHash(It.IsAny<string>())).Returns("hashed_password");
     }
 
-    public void ExistActiveUserWithEmail(string email)
+    public void ExistActiveUserWithEmail(string password)
     {
-        _mock.Setup(options => options.ExisteActiveUserWithEmail(email)).ReturnsAsync(true);
+        _mock.Setup(repo => repo.VerifyPassword(password, It.IsAny<string>())).Returns(true);
     }
 
     public IPasswordHasher Build()
