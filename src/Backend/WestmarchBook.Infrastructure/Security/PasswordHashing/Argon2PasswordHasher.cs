@@ -36,7 +36,7 @@ internal class Argon2PasswordHasher : IPasswordHasher
         Array.Copy(combinedBytes, hash, HASH_SIZE);
         Array.Copy(combinedBytes, HASH_SIZE, salt, 0, SALT_SIZE);
 
-        var newHash = PasswordHash(password, hash);
+        var newHash = PasswordHash(password, salt);
 
         return CryptographicOperations.FixedTimeEquals(newHash, hash);
     }
