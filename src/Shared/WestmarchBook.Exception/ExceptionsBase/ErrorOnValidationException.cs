@@ -1,4 +1,6 @@
-﻿namespace WestmarchBook.Exception.ExceptionBase;
+﻿using System.Net;
+
+namespace WestmarchBook.Exception.ExceptionsBase;
 
 public class ErrorOnValidationException: WestmarchBookException
 {
@@ -9,8 +11,13 @@ public class ErrorOnValidationException: WestmarchBookException
         _errors = errorsMessage;
     }
 
-    public List<string> GetErrorMessage()
+    public override List<string> GetErrorMessage()
     {
         return _errors;
+    }
+
+    public override HttpStatusCode GetStatusCode()
+    {
+        return HttpStatusCode.BadRequest;
     }
 }
