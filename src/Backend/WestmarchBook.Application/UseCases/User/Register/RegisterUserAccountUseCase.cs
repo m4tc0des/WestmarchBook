@@ -1,12 +1,11 @@
 ﻿using Mapster;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
-using WestmarchBook.Domain.Entities;
 using WestmarchBook.Domain.Repositories;
 using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Security.PasswordHashing;
 using WestmarchBook.Exception;
-using WestmarchBook.Exception.ExceptionBase;
+using WestmarchBook.Exception.ExceptionsBase;
 
 namespace WestmarchBook.Application.UseCases.User.Register;
 
@@ -31,7 +30,7 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
     {
         await ValidateAndThrowOnFailures(request);
 
-        var user = request.Adapt<Users>();
+        var user = request.Adapt<Domain.Entities.User>();
 
         user.Password = _passwordHasher.PasswordHash(request.Password);
 

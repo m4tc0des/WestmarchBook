@@ -11,9 +11,9 @@ internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRe
 
     public UserRepository(WestmarchBookDbContext dbContext)
     {
-        _dbContext = dbContext;   
+        _dbContext = dbContext;
     }
-    public async Task Add(Users user)
+    public async Task Add(User user)
     {
         await _dbContext.Users.AddAsync(user);
     }
@@ -21,5 +21,10 @@ internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRe
     public async Task<bool> ExisteActiveUserWithEmail(string email)
     {
         return await _dbContext.Users.AnyAsync(user => user.Active && user.Email.Equals(email));
+    }
+
+    public async Task<User?> GetByEmail(string email)
+    {
+        return await _dbContext.Users.AsNoTracking().SingleOrDefaultAsync(user => user.Active && user.Email.Equals(email));
     }
 }
