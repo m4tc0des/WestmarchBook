@@ -1,10 +1,11 @@
-﻿using CommonTestUtilities.Repositories;
+﻿using CommonTestUtilities.ErrorsClassData;
+using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Security;
 using Shouldly;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Exception;
-using WestmarchBook.Exception.ExceptionBase;
+using WestmarchBook.Exception.ExceptionsBase;
 
 namespace UseCases.Tests.User.Register;
 
@@ -25,10 +26,7 @@ public class RegisterUserAccountUseCaseTests
     }
 
     [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    [InlineData("     ")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is Null cause is a test>")]
+    [ClassData(typeof(EmptyNullOrBlankSpace))]
     public async Task Validate_ShouldHaveAnError_When_NameIsEmpty(string name)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -46,10 +44,7 @@ public class RegisterUserAccountUseCaseTests
     }
 
     [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    [InlineData("     ")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is Null cause is a test>")]
+    [ClassData(typeof(EmptyNullOrBlankSpace))]
     public async Task Validate_ShouldHaveAnError_When_EmailIsEmpty(string email)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -67,10 +62,7 @@ public class RegisterUserAccountUseCaseTests
     }
 
     [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    [InlineData("     ")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is Null cause is a test>")]
+    [ClassData(typeof(EmptyNullOrBlankSpace))]
     public async Task Validate_ShouldHaveAnError_When_PasswordIsEmpty(string password)
     {
         var request = RequestRegisterUserJsonBuilder.Build();

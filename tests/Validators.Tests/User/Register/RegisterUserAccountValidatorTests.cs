@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.ErrorsClassData;
+using CommonTestUtilities.Requests;
 using Shouldly;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Exception;
@@ -20,10 +21,7 @@ public class RegisterUserAccountValidatorTests
     }
 
     [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    [InlineData("        ")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is null because it's a test>")]
+    [ClassData(typeof(EmptyNullOrBlankSpace))]
     public void Validate_ShouldBeAnError_When_NameIsEmpty(string name)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -45,10 +43,7 @@ public class RegisterUserAccountValidatorTests
 
 
     [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    [InlineData("        ")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is null because it's a test>")]
+    [ClassData(typeof(EmptyNullOrBlankSpace))]
     public void Validate_ShouldBeAnError_When_EmailIsEmpty(string email)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -68,7 +63,6 @@ public class RegisterUserAccountValidatorTests
     }
 
     [Fact]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is null because it's a test>")]
     public void Validate_ShouldBeAnError_When_EmailIsInvalid()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -89,10 +83,7 @@ public class RegisterUserAccountValidatorTests
     }
 
     [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    [InlineData("        ")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "<Is null because it's a test>")]
+    [ClassData(typeof(EmptyNullOrBlankSpace))]
     public void Validate_ShouldBeAnError_When_PasswordIsEmpty(string password)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
