@@ -135,4 +135,7 @@
   <data name="VALIDATION_EMAIL_ALREADY_EXISTS" xml:space="preserve">
     <value>The email already in use.</value>
   </data>
+  <data name="VALIDATION_LOGIN_INVALID" xml:space="preserve">
+    <value>User or password is invalid.</value>
+  </data>
 </root>

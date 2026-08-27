@@ -97,6 +97,15 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuário ou senha inválidos..
+        /// </summary>
+        public static string VALIDATION_LOGIN_INVALID {
+            get {
+                return ResourceManager.GetString("VALIDATION_LOGIN_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O nome do usuário é obrigatório..
         /// </summary>
         public static string VALIDATION_NAME_REQUIRED {
