@@ -12,7 +12,7 @@ internal class Argon2PasswordHasher : IPasswordHasher
     private const int MEMORY_SIZE = 20 * 1024;
     private const int HASH_SIZE = 32;
     private const int SALT_SIZE = 16;
-    public string PasswordHash(string password)
+    public string HashPassword(string password)
     {
         var salt = RandomNumberGenerator.GetBytes(SALT_SIZE);
 
