@@ -32,7 +32,7 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 
         var user = request.Adapt<Domain.Entities.User>();
 
-        user.Password = _passwordHasher.PasswordHash(request.Password);
+        user.Password = _passwordHasher.HashPassword(request.Password);
 
         await _userWriteRepository.Add(user);
 
