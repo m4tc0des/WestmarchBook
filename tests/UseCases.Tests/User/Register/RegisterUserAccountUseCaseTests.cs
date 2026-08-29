@@ -3,6 +3,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Security;
 using Shouldly;
+using System.Net;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Exception;
 using WestmarchBook.Exception.ExceptionsBase;
@@ -36,6 +37,8 @@ public class RegisterUserAccountUseCaseTests
         var useCase = CreateUseCase();
         var exception = await useCase.Execute(request).ShouldThrowAsync<ErrorOnValidationException>();
 
+        exception.GetStatusCode().ShouldBe(HttpStatusCode.BadRequest);
+
         exception.GetErrorMessage().ShouldSatisfyAllConditions(error =>
         {
             error.Count.ShouldBe(1);
@@ -54,6 +57,8 @@ public class RegisterUserAccountUseCaseTests
         var useCase = CreateUseCase();
         var exception = await useCase.Execute(request).ShouldThrowAsync<ErrorOnValidationException>();
 
+        exception.GetStatusCode().ShouldBe(HttpStatusCode.BadRequest);
+
         exception.GetErrorMessage().ShouldSatisfyAllConditions(error =>
         {
             error.Count.ShouldBe(1);
@@ -71,6 +76,8 @@ public class RegisterUserAccountUseCaseTests
 
         var useCase = CreateUseCase();
         var exception = await useCase.Execute(request).ShouldThrowAsync<ErrorOnValidationException>();
+
+        exception.GetStatusCode().ShouldBe(HttpStatusCode.BadRequest);
 
         exception.GetErrorMessage().ShouldSatisfyAllConditions(error =>
         {

@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CommonTestUtilities.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.MySql;
+using WebApi.Tests.Resources;
+using WestmarchBook.Domain.Security.PasswordHashing;
+using WestmarchBook.Infrastructure.DataAccess;
 
 namespace WebApi.Tests;
 
 public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
+    public UserIdentityManager User_1 { get; private set; }
     private readonly MySqlContainer _mySqlContainer;
 
     public WestmarchBookApplicationFactory()
@@ -31,6 +37,19 @@ public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, I
     public async Task InitializeAsync()
     {
         await _mySqlContainer.StartAsync();
+
+        await using var scope = Services.CreateAsyncScope();
+
+        var dbContext = scope.ServiceProvider.GetRequiredService<WestmarchBookDbContext>();
+        var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+        var (user, password) = UserBuilder.Build();
+
+        user.Password = passwordHasher.HashPassword(password);
+
+        await dbContext.Users.AddAsync(user);
+        await dbContext.SaveChangesAsync();
+
+        User_1 = new UserIdentityManager(user, password);
     }
 
     Task IAsyncLifetime.DisposeAsync()
