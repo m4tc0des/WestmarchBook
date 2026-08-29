@@ -1,35 +1,25 @@
 ﻿using CommonTestUtilities.Requests;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Tests.InlineData;
 using WestmarchBook.Exception;
-using WestmarchBook.Infrastructure.DataAccess;
 
 namespace WebApi.Tests.User.Register;
 
-public class RegisterUserAccountTests : IClassFixture<WestmarchBookApplicationFactory>
+public class RegisterUserAccountTests : BaseIntegrationTest
 {
-    private readonly HttpClient _httpClient;
     private const string REQUEST_URI = "/users";
-    private readonly WestmarchBookDbContext _dbContext;
 
-    public RegisterUserAccountTests(WestmarchBookApplicationFactory factory)
-    {
-        _httpClient = factory.CreateClient();
-        var scope = factory.Services.CreateAsyncScope();
-        _dbContext = scope.ServiceProvider.GetRequiredService<WestmarchBookDbContext>();
-    }
+    public RegisterUserAccountTests(WestmarchBookApplicationFactory factory) : base(factory) { }
 
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
-        var response = await _httpClient.PostAsJsonAsync(REQUEST_URI, request);
+        var response = await Post(REQUEST_URI, request);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -41,7 +31,7 @@ public class RegisterUserAccountTests : IClassFixture<WestmarchBookApplicationFa
         responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldBeEmpty();
         responseData.RootElement.GetProperty("tokens").GetProperty("refreshToken").GetString().ShouldBeEmpty();
 
-        var userExists = await _dbContext.Users.AnyAsync(user =>
+        var userExists = await DbContext.Users.AnyAsync(user =>
         user.Active &&
         user.Name.Equals(request.Name) &&
         user.Email.Equals(request.Email));
@@ -57,10 +47,7 @@ public class RegisterUserAccountTests : IClassFixture<WestmarchBookApplicationFa
 
         request.Name = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.ParseAdd(culture);
-
-        var response = await _httpClient.PostAsJsonAsync(REQUEST_URI, request);
+        var response = await Post(REQUEST_URI, request, culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
@@ -77,7 +64,7 @@ public class RegisterUserAccountTests : IClassFixture<WestmarchBookApplicationFa
             errors.ShouldContain(error => error.GetString()!.Equals(expectedErrorMessage));
         });
 
-        var userExists = await _dbContext.Users.AnyAsync(user =>
+        var userExists = await DbContext.Users.AnyAsync(user =>
         user.Active &&
         user.Name.Equals(request.Name) &&
         user.Email.Equals(request.Email));
