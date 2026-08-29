@@ -11,10 +11,10 @@ public class IPasswordHasherBuilder
     {
         _mock = new Mock<IPasswordHasher>();
 
-        _mock.Setup(x => x.PasswordHash(It.IsAny<string>())).Returns("hashed_password");
+        _mock.Setup(x => x.HashPassword(It.IsAny<string>())).Returns("hashed_password");
     }
 
-    public void ExistActiveUserWithEmail(string password)
+    public void VerifyPassword(string password)
     {
         _mock.Setup(repo => repo.VerifyPassword(password, It.IsAny<string>())).Returns(true);
     }
