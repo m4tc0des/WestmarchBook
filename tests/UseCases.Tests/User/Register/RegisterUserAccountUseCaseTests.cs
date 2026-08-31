@@ -22,7 +22,7 @@ public class RegisterUserAccountUseCaseTests
         result.ShouldNotBeNull();
         result.Tokens.ShouldNotBeNull();
         result.Name.ShouldBe(request.Name);
-        result.Tokens.AccessToken.ShouldBeNullOrEmpty();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
         result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
     }
 
@@ -92,7 +92,8 @@ public class RegisterUserAccountUseCaseTests
         var userWriteOnlyRepository = IUserWriteOnlyRepositoryBuilder.Build();
         var userReadOnlyRepository = new IUserReadOnlyRepositoryBuilder().Build();
         var passwordHasher = new IPasswordHasherBuilder().Build();
+        var accessTokenGenerator = IAccessTokenGeneratorBuilder.Build();
 
-        return new RegisterUserAccountUseCase(passwordHasher, userWriteOnlyRepository, userReadOnlyRepository, unitOfWork);
+        return new RegisterUserAccountUseCase(passwordHasher, userWriteOnlyRepository, userReadOnlyRepository, unitOfWork, accessTokenGenerator);
     }
 }
