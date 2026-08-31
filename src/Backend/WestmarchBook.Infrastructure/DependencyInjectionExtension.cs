@@ -18,16 +18,35 @@ public static class DependencyInjectionExtension
     {
         public void AddInfrastructure(IConfiguration configuration)
         {
-            services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
+            services.AddRepositories();
+            services.AddDbContext(configuration);
+            services.AddTokenHandlers(configuration);
+            services.AddPasswordHasher();    
+        }
+
+        private void AddRepositories()
+        {
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        private void AddPasswordHasher()
+        {
+            services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
+        }
+
+        private void AddDbContext(IConfiguration configuration)
+        {
             services.AddDbContext<WestmarchBookDbContext>(options =>
             {
                 var connectionString = configuration.GetConnectionString("DbConnection");
                 options.UseMySQL(connectionString!);
             });
+        }
 
+        private void AddTokenHandlers(IConfiguration configuration)
+        {
             var expirationTimeInMinutes = configuration.GetValue<uint>("JsonWebToken:ExpirationTimeInMinutes");
             var signingKey = configuration.GetValue<string>("JsonWebToken:SigningKey");
 
@@ -35,7 +54,6 @@ public static class DependencyInjectionExtension
             {
                 return new JwtTokenHandler(expirationTimeInMinutes, signingKey!);
             });
-            
         }
     }
 }
