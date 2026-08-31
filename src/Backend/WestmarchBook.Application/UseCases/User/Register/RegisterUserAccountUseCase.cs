@@ -4,6 +4,7 @@ using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Repositories;
 using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Security.PasswordHashing;
+using WestmarchBook.Domain.Security.Tokens;
 using WestmarchBook.Exception;
 using WestmarchBook.Exception.ExceptionsBase;
 
@@ -15,16 +16,19 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserWriteOnlyRepository _userWriteRepository;
     private readonly IUserReadOnlyRepository _userReadRepository;
+    private readonly IAccessTokenGenerator _accessTokenGenerator;
 
     public RegisterUserAccountUseCase(IPasswordHasher passwordHasher,
         IUserWriteOnlyRepository userWriteRepository,
         IUserReadOnlyRepository userReadRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IAccessTokenGenerator accessTokenGenerator)
     {
         _userWriteRepository = userWriteRepository;
         _userReadRepository = userReadRepository;
         _passwordHasher = passwordHasher;
         _unitOfWork = unitOfWork;
+        _accessTokenGenerator = accessTokenGenerator;
     }
     public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
     {
@@ -40,14 +44,17 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 
         return new ResponseRegisterUserJson
         {
-            Name = user.Name
+            Name = user.Name,
+            Tokens = new ResponseTokensJson
+            {
+                AccessToken = _accessTokenGenerator.Generate(user)
+            }
         };
     }
 
     private async Task ValidateAndThrowOnFailures(RequestRegisterUserJson request)
     {
         var validator = new RegisterUserAccountValidator();
-
         var result = validator.Validate(request);
 
         if (result.IsValid == false)
@@ -58,9 +65,6 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 
         var userExists = await _userReadRepository.ExisteActiveUserWithEmail(request.Email);
 
-        if (userExists)
-        {
-            throw new ErrorOnValidationException(new List<string> { ResourceMessagesException.VALIDATION_EMAIL_ALREADY_EXISTS });
-        } 
+        if (userExists) throw new ErrorOnValidationException(new List<string> { ResourceMessagesException.VALIDATION_EMAIL_ALREADY_EXISTS });
     }
 }
