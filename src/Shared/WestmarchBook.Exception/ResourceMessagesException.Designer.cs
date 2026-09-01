@@ -70,6 +70,15 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Esta requisição precisa de um access token..
+        /// </summary>
+        public static string VALIDATION_ACCESS_TOKEN_REQUIRED {
+            get {
+                return ResourceManager.GetString("VALIDATION_ACCESS_TOKEN_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O email já esta em uso..
         /// </summary>
         public static string VALIDATION_EMAIL_ALREADY_EXISTS {
@@ -120,6 +129,15 @@ namespace WestmarchBook.Exception {
         public static string VALIDATION_PASSWORD_REQUIRED {
             get {
                 return ResourceManager.GetString("VALIDATION_PASSWORD_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Você não tem acesso a este recurso..
+        /// </summary>
+        public static string VALIDATION_RESOURCE_ACCESS_DENIED {
+            get {
+                return ResourceManager.GetString("VALIDATION_RESOURCE_ACCESS_DENIED", resourceCulture);
             }
         }
     }
