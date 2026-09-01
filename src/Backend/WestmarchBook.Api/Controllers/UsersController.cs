@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
@@ -17,5 +18,14 @@ public class UsersController : ControllerBase
         var result = await useCase.Execute(request);
 
         return Created(string.Empty, result);
+    }
+
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetUserProfile()
+    {
+        return Ok();
     }
 }
