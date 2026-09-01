@@ -1,9 +1,16 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using WestmarchBook.Api.Converters;
 using WestmarchBook.Api.Filters;
 using WestmarchBook.Application;
+using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Infrastructure;
 using WestmarchBook.Infrastructure.Migrations;
 
@@ -29,6 +36,46 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         new AcceptLanguageHeaderRequestCultureProvider()
     };
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var signingKey = builder.Configuration.GetValue<string>("JsonWebToken:SigningKey");
+
+        options.TokenValidationParameters = new()
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey!)),
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var userId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
+                ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (userId == string.Empty)
+                {
+                    context.Fail("Invalid user ID");
+
+                    return;
+                }
+
+                var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserReadOnlyRepository>();
+                var existUser = await userRepository.ExisteActiveUserWithId(long.Parse(userId!));
+
+                if (!existUser)
+                {
+                    context.Fail("User not found");
+                }
+            }
+        };
+    });
 
 var app = builder.Build();
 
@@ -59,4 +106,4 @@ async Task ExecuteMigrations()
 
     await DatabaseMigration.ExecuteMigrations(scope.ServiceProvider);
 }
-public partial class Program(){ }
+public partial class Program() { }
