@@ -10,7 +10,9 @@ using System.Text;
 using WestmarchBook.Api.Converters;
 using WestmarchBook.Api.Filters;
 using WestmarchBook.Application;
+using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Repositories.User;
+using WestmarchBook.Exception;
 using WestmarchBook.Infrastructure;
 using WestmarchBook.Infrastructure.Migrations;
 
@@ -61,18 +63,34 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
                 if (userId == string.Empty)
                 {
-                    context.Fail("Invalid user ID");
+                    context.Fail("Invalid token subject");
 
                     return;
                 }
 
                 var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserReadOnlyRepository>();
-                var existUser = await userRepository.ExisteActiveUserWithId(long.Parse(userId!));
+                var userExists = await userRepository.ExisteActiveUserWithId(long.Parse(userId!));
 
-                if (!existUser)
+                if (!userExists)
                 {
-                    context.Fail("User not found");
+                    context.Fail("User not found or inactive");
                 }
+            },
+
+            OnChallenge = async context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+
+                var response = context.AuthenticateFailure switch
+                {
+                    null => new ResponseErrorJson(ResourceMessagesException.VALIDATION_ACCESS_TOKEN_REQUIRED),
+                    SecurityTokenExpiredException => new ResponseErrorJson("Token expired.", accessTokenExpired: true),
+                    _ => new ResponseErrorJson(ResourceMessagesException.VALIDATION_RESOURCE_ACCESS_DENIED)
+                };
+
+                await context.Response.WriteAsJsonAsync(response);
             }
         };
     });
