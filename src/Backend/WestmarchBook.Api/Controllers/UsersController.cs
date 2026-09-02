@@ -22,8 +22,6 @@ public class UsersController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetUserProfile()
     {
         return Ok();
