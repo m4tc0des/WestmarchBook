@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WestmarchBook.Application.UseCases.User.Profile;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
@@ -22,8 +23,11 @@ public class UsersController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> GetUserProfile()
+    [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserProfile([FromServices] IGetUserProfileUseCase useCase)
     {
-        return Ok();
+        var result = await useCase.Execute();
+
+        return Ok(result);
     }
 }
