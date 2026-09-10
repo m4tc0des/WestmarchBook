@@ -21,7 +21,7 @@ internal sealed class LoggedUser : ILoggedUser
     {
        var userId = GetUserId();
 
-        return await _dbContext.Users.FirstAsync(user => user.Active && user.Id == userId);
+        return await _dbContext.Users.AsNoTracking().FirstAsync(user => user.Active && user.Id == userId);
     }
 
     public long GetUserId()
@@ -29,8 +29,8 @@ internal sealed class LoggedUser : ILoggedUser
         var accessToken = _accessTokenProvider.GetToken();
         var handler = new JsonWebTokenHandler();
         var jsonWebToken = handler.ReadJsonWebToken(accessToken);
-        var subject = jsonWebToken.Claims.First(claim => claim.Type.Equals(JwtRegisteredClaimNames.Sub));
+        var subject = jsonWebToken.Subject;
 
-        return long.Parse(subject.Value);
+        return long.Parse(subject);
     }
 }
