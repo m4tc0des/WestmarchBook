@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WestmarchBook.Application.UseCases.Login.WithEmailAndPassword;
+using WestmarchBook.Application.UseCases.User.Profile;
 using WestmarchBook.Application.UseCases.User.Register;
 
 namespace WestmarchBook.Application;
@@ -16,6 +17,7 @@ public static class DependencyInjectionExtension
         {
             services.AddScoped<IRegisterUserAccountUseCase, RegisterUserAccountUseCase>();
             services.AddScoped<ILoginWithEmailAndPasswordUseCase, LoginWithEmailAndPasswordUseCase>();
+            services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         }
     }
 }
