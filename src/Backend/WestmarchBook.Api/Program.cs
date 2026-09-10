@@ -9,9 +9,11 @@ using System.Security.Claims;
 using System.Text;
 using WestmarchBook.Api.Converters;
 using WestmarchBook.Api.Filters;
+using WestmarchBook.Api.Token;
 using WestmarchBook.Application;
 using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Repositories.User;
+using WestmarchBook.Domain.Security.Tokens;
 using WestmarchBook.Exception;
 using WestmarchBook.Infrastructure;
 using WestmarchBook.Infrastructure.Migrations;
@@ -43,10 +45,11 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
+builder.Services.AddScoped<IAccessTokenProvider, HttpContextTokenProvider>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new List<CultureInfo> { new("pt-BR"), new("en") };
