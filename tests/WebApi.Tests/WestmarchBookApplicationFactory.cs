@@ -6,13 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.MySql;
 using WebApi.Tests.Resources;
 using WestmarchBook.Domain.Security.PasswordHashing;
+using WestmarchBook.Domain.Security.Tokens;
 using WestmarchBook.Infrastructure.DataAccess;
 
 namespace WebApi.Tests;
 
 public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    public UserIdentityManager User_1 { get; private set; }
+    public UserIdentityManager User_1 { get; private set; } = default!;
     private readonly MySqlContainer _mySqlContainer;
 
     public WestmarchBookApplicationFactory()
@@ -42,6 +43,7 @@ public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, I
 
         var dbContext = scope.ServiceProvider.GetRequiredService<WestmarchBookDbContext>();
         var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+        var accessTokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
         var (user, password) = UserBuilder.Build();
 
         user.Password = passwordHasher.HashPassword(password);
@@ -49,7 +51,9 @@ public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, I
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
 
-        User_1 = new UserIdentityManager(user, password);
+        var user1AccessToken = accessTokenGenerator.Generate(user);
+
+        User_1 = new UserIdentityManager(user, password, user1AccessToken);
     }
 
     Task IAsyncLifetime.DisposeAsync()
