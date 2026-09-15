@@ -11,12 +11,12 @@ using WestmarchBook.Exception;
 
 namespace WebApi.Tests.Login.WithEmailAndPassword;
 
-public class LoginWithEmailAndPasswordTests: BaseIntegrationTest
+public class LoginWithEmailAndPasswordTests : BaseIntegrationTest
 {
     private const string REQUEST_URI = "/authentication";
     private readonly UserIdentityManager _user1;
 
-    public LoginWithEmailAndPasswordTests(WestmarchBookApplicationFactory factory): base(factory)
+    public LoginWithEmailAndPasswordTests(WestmarchBookApplicationFactory factory) : base(factory)
     {
         _user1 = factory.User_1;
     }
@@ -49,7 +49,7 @@ public class LoginWithEmailAndPasswordTests: BaseIntegrationTest
     {
         var request = RequestLoginJsonBuilder.Build();
 
-        var response = await Post(REQUEST_URI, request, culture);
+        var response = await Post(REQUEST_URI, request, culture: culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
 
