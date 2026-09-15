@@ -4,30 +4,23 @@ public class UserIdentityManager
 {
     private readonly WestmarchBook.Domain.Entities.User _user;
     private readonly string _password;
+    private readonly string _accessToken;
 
-    public UserIdentityManager(WestmarchBook.Domain.Entities.User user, string password)
+    public UserIdentityManager(WestmarchBook.Domain.Entities.User user, string password, string accessToken)
     {
-        _user = user;   
+        _user = user;
         _password = password;
+        _accessToken = accessToken;
     }
 
-    public long GetId()
-    {
-        return _user.Id;
-    }
+    public long GetId() => _user.Id;
 
-    public string GetName()
-    {
-        return _user.Name;
-    }
+    public string GetName() => _user.Name;
 
-    public string GetEmail()
-    {
-        return _user.Email;
-    }
+    public string GetEmail() => _user.Email;
 
-    public string GetPassword()
-    {
-        return _password;
-    }
+    public string GetPassword() => _password;
+
+    public string GetAccessToken() => _accessToken;
+
 }
