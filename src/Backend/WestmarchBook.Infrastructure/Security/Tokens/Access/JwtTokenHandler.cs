@@ -22,7 +22,7 @@ internal sealed class JwtTokenHandler : IAccessTokenGenerator
     {
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString())
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor

@@ -22,9 +22,8 @@ public static class DependencyInjectionExtension
         {
             services.AddRepositories();
             services.AddDbContext(configuration);
-            services.AddTokenHandlers(configuration);
-            services.AddPasswordHasher();
-            services.AddLoggedUser();
+            services.AddSecurity(configuration);
+            services.AddAuthentication();
         }
 
         private void AddRepositories()
@@ -34,12 +33,19 @@ public static class DependencyInjectionExtension
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        private void AddPasswordHasher()
+        private void AddSecurity(IConfiguration configuration)
         {
             services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
+            services.AddScoped<IAccessTokenGenerator>(provider =>
+            {
+                var expirationTimeInMinutes = configuration.GetValue<uint>("JsonWebToken:ExpirationTimeInMinutes");
+                var signingKey = configuration.GetValue<string>("JsonWebToken:SigningKey");
+
+                return new JwtTokenHandler(expirationTimeInMinutes, signingKey!);
+            });
         }
 
-        private void AddLoggedUser()
+        private void AddAuthentication()
         {
             services.AddScoped<ILoggedUser, LoggedUser>();
         }
@@ -50,17 +56,6 @@ public static class DependencyInjectionExtension
             {
                 var connectionString = configuration.GetConnectionString("DbConnection");
                 options.UseMySQL(connectionString!);
-            });
-        }
-
-        private void AddTokenHandlers(IConfiguration configuration)
-        {
-            var expirationTimeInMinutes = configuration.GetValue<uint>("JsonWebToken:ExpirationTimeInMinutes");
-            var signingKey = configuration.GetValue<string>("JsonWebToken:SigningKey");
-
-            services.AddScoped<IAccessTokenGenerator>(options =>
-            {
-                return new JwtTokenHandler(expirationTimeInMinutes, signingKey!);
             });
         }
     }
