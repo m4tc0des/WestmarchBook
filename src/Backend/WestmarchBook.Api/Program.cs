@@ -82,10 +82,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnTokenValidated = async context =>
             {
-                var userId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
-                ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+                var subject = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub) ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                if (userId == string.Empty)
+                if (long.TryParse(subject, out var userId) == false)
                 {
                     context.Fail("Invalid token subject");
 
@@ -93,9 +92,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 }
 
                 var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserReadOnlyRepository>();
-                var userExists = await userRepository.ExisteActiveUserWithId(long.Parse(userId!));
 
-                if (!userExists)
+                var userExists = await userRepository.ExisteActiveUserWithId(userId);
+
+                if (userExists == false)
                 {
                     context.Fail("User not found or inactive");
                 }
