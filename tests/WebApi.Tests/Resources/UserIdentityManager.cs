@@ -15,12 +15,11 @@ public class UserIdentityManager
 
     public long GetId() => _user.Id;
 
-    public string GetName() => _user.Name;
+    public string GetName() => _user.UserName;
 
     public string GetEmail() => _user.Email;
 
     public string GetPassword() => _password;
 
     public string GetAccessToken() => _accessToken;
-
 }
