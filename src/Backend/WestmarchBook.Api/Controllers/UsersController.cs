@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WestmarchBook.Application.UseCases.User.ChangePassword;
 using WestmarchBook.Application.UseCases.User.Profile;
 using WestmarchBook.Application.UseCases.User.Register;
+using WestmarchBook.Application.UseCases.User.Update;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 
@@ -29,5 +31,27 @@ public class UsersController : ControllerBase
         var result = await useCase.Execute();
 
         return Ok(result);
+    }
+
+    [HttpPut("profile")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProfile([FromBody]RequestUpdateUserJson request, [FromServices]IUpdateUserUseCase useCase)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
+    }
+
+    [HttpPut("password")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdatePassword([FromBody] RequestChangePasswordJson request, [FromServices] IChangePasswordUseCase useCase)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
     }
 }
