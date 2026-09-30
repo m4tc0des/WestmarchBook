@@ -25,7 +25,7 @@ public class LoginWithEmailAndPasswordUseCaseTests
 
         result.ShouldNotBeNull();
         result.Tokens.ShouldNotBeNull();
-        result.Name.ShouldBe(user.UserName);
+        result.UserName.ShouldBe(user.UserName);
         result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
         result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
     }

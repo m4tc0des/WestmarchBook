@@ -26,7 +26,7 @@ public class GetUserProfileTest : BaseIntegrationTest
 
         var responseData = await JsonDocument.ParseAsync(responseBody);
 
-        responseData.RootElement.GetProperty("name").GetString().ShouldBe(_user1.GetName());
+        responseData.RootElement.GetProperty("userName").GetString().ShouldBe(_user1.GetName());
         responseData.RootElement.GetProperty("email").GetString().ShouldBe(_user1.GetEmail());
     }
 }

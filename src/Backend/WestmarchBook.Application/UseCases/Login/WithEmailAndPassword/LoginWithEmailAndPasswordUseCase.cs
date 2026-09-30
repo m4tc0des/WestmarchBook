@@ -34,7 +34,7 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
 
         return new ResponseRegisterUserJson
         {
-            Name = user.UserName,
+            UserName = user.UserName,
             Tokens = new ResponseTokensJson
             {
                 AccessToken = _accessTokenGenerator.Generate(user)

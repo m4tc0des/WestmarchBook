@@ -15,7 +15,7 @@ public class GetUserProfileUseCaseTests
         var result = await useCase.Execute();
 
         result.ShouldNotBeNull();
-        result.Name.ShouldBe(user.Name);
+        result.UserName.ShouldBe(user.UserName);
         result.Email.ShouldBe(user.Email);
     }
 
