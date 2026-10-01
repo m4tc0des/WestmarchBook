@@ -5,7 +5,7 @@ using WestmarchBook.Infrastructure.DataAccess;
 
 namespace WestmarchBook.Infrastructure.Repositories;
 
-internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
+internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository, IUserUpdateOnlyRepository
 {
     private readonly WestmarchBookDbContext _dbContext;
 
@@ -31,5 +31,18 @@ internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRe
     public async Task<User?> GetByEmail(string email)
     {
         return await _dbContext.Users.AsNoTracking().SingleOrDefaultAsync(user => user.Active && user.Email.Equals(email));
+    }
+
+    public async Task UpdatePassword(long userId, string passwordHash)
+    {
+        await _dbContext.Users.Where(user => user.Id == userId).ExecuteUpdateAsync( options => options.SetProperty(user => user.Password, passwordHash));
+    }
+
+    public void UpdateProfile(User user)
+    {
+        _dbContext.Users.Attach(user);
+
+        _dbContext.Entry(user).Property(user => user.UserName).IsModified = true;
+        _dbContext.Entry(user).Property(user => user.Email).IsModified = true;
     }
 }
