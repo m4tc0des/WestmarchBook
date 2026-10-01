@@ -9,7 +9,7 @@ public class RegisterUserAccountValidator: AbstractValidator<RequestRegisterUser
 {
     public RegisterUserAccountValidator()
     {
-        RuleFor(user => user.UserName).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_NAME_REQUIRED);
+        RuleFor(user => user.UserName).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_USERNAME_REQUIRED);
         RuleFor(user => user.Password).Password();
         RuleFor(user => user.Email)
             .Cascade(CascadeMode.Stop)
