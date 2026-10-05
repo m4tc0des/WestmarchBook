@@ -120,7 +120,7 @@
   <data name="VALIDATION_EMAIL_REQUIRED" xml:space="preserve">
     <value>O email é obrigatório.</value>
   </data>
-  <data name="VALIDATION_NAME_REQUIRED" xml:space="preserve">
+  <data name="VALIDATION_USERNAME_REQUIRED" xml:space="preserve">
     <value>O nome do usuário é obrigatório.</value>
   </data>
   <data name="VALIDATION_EMAIL_INVALID" xml:space="preserve">
@@ -143,5 +143,20 @@
   </data>
   <data name="VALIDATION_RESOURCE_ACCESS_DENIED" xml:space="preserve">
     <value>Você não tem acesso a este recurso.</value>
+  </data>
+  <data name="VALIDATION_CURRENT_PASSWORD" xml:space="preserve">
+    <value>A senha atual está invalia.</value>
+  </data>
+  <data name="VALIDATION_PASSWORD_MIN_LENGTH" xml:space="preserve">
+    <value>A senha deve conter no minímo 8 caracteres.</value>
+  </data>
+  <data name="VALIDATION_PASSWORD_SPECIAL_CHARACTER" xml:space="preserve">
+    <value>A senha deve conter ao menos um caractere especial.</value>
+  </data>
+  <data name="VALIDATION_PASSWORD_UPPERCASE" xml:space="preserve">
+    <value>A senha deve conter ao menos uma letra maiúscula.</value>
+  </data>
+  <data name="VALIDATION_PASSWORD_LOWERCASE" xml:space="preserve">
+    <value>A senha deve conter ao menos uma letra minuscula.</value>
   </data>
 </root>

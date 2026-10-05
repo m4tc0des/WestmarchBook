@@ -79,6 +79,15 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A senha atual está invalia..
+        /// </summary>
+        public static string VALIDATION_CURRENT_PASSWORD {
+            get {
+                return ResourceManager.GetString("VALIDATION_CURRENT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O email já esta em uso..
         /// </summary>
         public static string VALIDATION_EMAIL_ALREADY_EXISTS {
@@ -115,11 +124,20 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O nome do usuário é obrigatório..
+        ///   Looks up a localized string similar to A senha deve conter ao menos uma letra minuscula..
         /// </summary>
-        public static string VALIDATION_NAME_REQUIRED {
+        public static string VALIDATION_PASSWORD_LOWERCASE {
             get {
-                return ResourceManager.GetString("VALIDATION_NAME_REQUIRED", resourceCulture);
+                return ResourceManager.GetString("VALIDATION_PASSWORD_LOWERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A senha deve conter no minímo 8 caracteres..
+        /// </summary>
+        public static string VALIDATION_PASSWORD_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_MIN_LENGTH", resourceCulture);
             }
         }
         
@@ -133,11 +151,38 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A senha deve conter ao menos um caractere especial..
+        /// </summary>
+        public static string VALIDATION_PASSWORD_SPECIAL_CHARACTER {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_SPECIAL_CHARACTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A senha deve conter ao menos uma letra maiúscula..
+        /// </summary>
+        public static string VALIDATION_PASSWORD_UPPERCASE {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_UPPERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Você não tem acesso a este recurso..
         /// </summary>
         public static string VALIDATION_RESOURCE_ACCESS_DENIED {
             get {
                 return ResourceManager.GetString("VALIDATION_RESOURCE_ACCESS_DENIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O nome do usuário é obrigatório..
+        /// </summary>
+        public static string VALIDATION_USERNAME_REQUIRED {
+            get {
+                return ResourceManager.GetString("VALIDATION_USERNAME_REQUIRED", resourceCulture);
             }
         }
     }
