@@ -21,7 +21,7 @@ public class RegisterUserAccountUseCaseTests
 
         result.ShouldNotBeNull();
         result.Tokens.ShouldNotBeNull();
-        result.Name.ShouldBe(request.Name);
+        result.UserName.ShouldBe(request.UserName);
         result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
         result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
     }
@@ -32,7 +32,7 @@ public class RegisterUserAccountUseCaseTests
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        request.Name = name;
+        request.UserName = name;
 
         var useCase = CreateUseCase();
         var exception = await useCase.Execute(request).ShouldThrowAsync<ErrorOnValidationException>();
@@ -42,7 +42,7 @@ public class RegisterUserAccountUseCaseTests
         exception.GetErrorMessage().ShouldSatisfyAllConditions(error =>
         {
             error.Count.ShouldBe(1);
-            error.ShouldContain(ResourceMessagesException.VALIDATION_NAME_REQUIRED);
+            error.ShouldContain(ResourceMessagesException.VALIDATION_USERNAME_REQUIRED);
         });
     }
 
