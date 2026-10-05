@@ -20,7 +20,7 @@ public class UserBuilder
     private static (string password, string passwordHashed) GenerateRandomPassword()
     {
         var passwordEncripter = new IPasswordHasherBuilder().Build();
-        var password = new Faker().Internet.Password();
+        var password = "Ab1@" + new Faker().Internet.Password(8);
 
         return (password, passwordEncripter.HashPassword(password));
     }
