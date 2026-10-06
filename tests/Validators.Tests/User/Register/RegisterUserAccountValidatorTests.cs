@@ -26,7 +26,7 @@ public class RegisterUserAccountValidatorTests
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        request.Name = name;
+        request.UserName = name;
 
         var userCase = new RegisterUserAccountValidator();
         var result = userCase.Validate(request);
@@ -36,11 +36,9 @@ public class RegisterUserAccountValidatorTests
         result.Errors.ShouldSatisfyAllConditions(error =>
         {
             error.Count.ShouldBe(1);
-            error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_NAME_REQUIRED));
+            error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_USERNAME_REQUIRED));
         });
     }
-
-
 
     [Theory]
     [ClassData(typeof(EmptyNullOrBlankSpace))]
@@ -100,6 +98,87 @@ public class RegisterUserAccountValidatorTests
         {
             error.Count.ShouldBe(1);
             error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_PASSWORD_REQUIRED));
+        });
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    public void Validate_ShouldBeAnError_When_PasswordHasInsufficientCharacters(int passwordLength)
+    {
+        var request = RequestRegisterUserJsonBuilder.Build(passwordLength);
+
+        var userCase = new RegisterUserAccountValidator();
+
+        var result = userCase.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+
+        result.Errors.ShouldSatisfyAllConditions(error =>
+        {
+            error.Count.ShouldBe(1);
+            error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_PASSWORD_MIN_LENGTH));
+        });
+    }
+
+    [Fact]
+    public void Validate_ShouldBeAnError_When_PasswordDoesNotHaveLowercaseLetter()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+
+        request.Password = "@PASSWORD123";
+
+        var userCase = new RegisterUserAccountValidator();
+
+        var result = userCase.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+
+        result.Errors.ShouldSatisfyAllConditions(error =>
+        {
+            error.Count.ShouldBe(1);
+            error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_PASSWORD_LOWERCASE));
+        });
+    }
+
+    [Fact]
+    public void Validate_ShouldBeAnError_When_PasswordDoesNotHaveUppercaseLetter()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+
+        request.Password = "@password123";
+
+        var userCase = new RegisterUserAccountValidator();
+
+        var result = userCase.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+
+        result.Errors.ShouldSatisfyAllConditions(error =>
+        {
+            error.Count.ShouldBe(1);
+            error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_PASSWORD_UPPERCASE));
+        });
+    }
+
+    [Fact]
+    public void Validate_ShouldBeAnError_When_PasswordDoesNotHaveSpecialCharacter()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+
+        request.Password = "Password123";
+
+        var userCase = new RegisterUserAccountValidator();
+
+        var result = userCase.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+
+        result.Errors.ShouldSatisfyAllConditions(error =>
+        {
+            error.Count.ShouldBe(1);
+            error.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_PASSWORD_SPECIAL_CHARACTER));
         });
     }
 }
