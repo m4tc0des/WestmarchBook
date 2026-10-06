@@ -27,13 +27,13 @@ public class RegisterUserAccountTests : BaseIntegrationTest
 
         var responseData = await JsonDocument.ParseAsync(responseBody);
 
-        responseData.RootElement.GetProperty("name").GetString().ShouldBe(request.Name);
+        responseData.RootElement.GetProperty("userName").GetString().ShouldBe(request.UserName);
         responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldNotBeNullOrEmpty();
         responseData.RootElement.GetProperty("tokens").GetProperty("refreshToken").GetString().ShouldBeEmpty();
 
         var userExists = await DbContext.Users.AnyAsync(user =>
         user.Active &&
-        user.Name.Equals(request.Name) &&
+        user.UserName.Equals(request.UserName) &&
         user.Email.Equals(request.Email));
 
         userExists.ShouldBeTrue();
@@ -45,13 +45,13 @@ public class RegisterUserAccountTests : BaseIntegrationTest
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        request.Name = string.Empty;
+        request.UserName = string.Empty;
 
         var response = await Post(REQUEST_URI, request, culture: culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
-        var expectedErrorMessage = ResourceMessagesException.ResourceManager.GetString("VALIDATION_NAME_REQUIRED", new CultureInfo(culture));
+        var expectedErrorMessage = ResourceMessagesException.ResourceManager.GetString("VALIDATION_USERNAME_REQUIRED", new CultureInfo(culture));
 
         await using var responseBody = await response.Content.ReadAsStreamAsync();
 
@@ -66,7 +66,7 @@ public class RegisterUserAccountTests : BaseIntegrationTest
 
         var userExists = await DbContext.Users.AnyAsync(user =>
         user.Active &&
-        user.Name.Equals(request.Name) &&
+        user.UserName.Equals(request.UserName) &&
         user.Email.Equals(request.Email));
 
         userExists.ShouldBeFalse();
