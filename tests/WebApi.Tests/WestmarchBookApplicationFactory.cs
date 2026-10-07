@@ -14,6 +14,7 @@ namespace WebApi.Tests;
 public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     public UserIdentityManager User_1 { get; private set; } = default!;
+    public string TOKEN_USER_NOT_FOUND_IN_DATABASE { get; private set; } = string.Empty;
     private readonly MySqlContainer _mySqlContainer;
 
     public WestmarchBookApplicationFactory()
@@ -54,6 +55,8 @@ public class WestmarchBookApplicationFactory : WebApplicationFactory<Program>, I
         var user1AccessToken = accessTokenGenerator.Generate(user);
 
         User_1 = new UserIdentityManager(user, password, user1AccessToken);
+
+        TOKEN_USER_NOT_FOUND_IN_DATABASE = accessTokenGenerator.Generate(new WestmarchBook.Domain.Entities.User());
     }
 
     Task IAsyncLifetime.DisposeAsync()
