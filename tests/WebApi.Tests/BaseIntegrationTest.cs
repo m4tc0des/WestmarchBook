@@ -34,6 +34,14 @@ public abstract class BaseIntegrationTest : IClassFixture<WestmarchBookApplicati
         return await _httpClient.PostAsJsonAsync(requestUri, request);
     }
 
+    protected async Task<HttpResponseMessage> Patch(string requestUri, object request, string accessToken, string culture = "pt-BR")
+    {
+        ChangeRequestCulture(culture);
+        AuthorizeRequest(accessToken);
+
+        return await _httpClient.PatchAsJsonAsync(requestUri, request);
+    }
+
     private void ChangeRequestCulture(string culture)
     {
         _httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
