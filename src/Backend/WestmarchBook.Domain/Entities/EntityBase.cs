@@ -1,6 +1,6 @@
 ﻿namespace WestmarchBook.Domain.Entities;
 
-public class EntityBase
+public abstract class EntityBase
 {
     public long Id { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
