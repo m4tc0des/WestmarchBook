@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -158,5 +158,62 @@
   </data>
   <data name="VALIDATION_PASSWORD_LOWERCASE" xml:space="preserve">
     <value>A senha deve conter ao menos uma letra minuscula.</value>
+  </data>
+  <data name="VALIDATION_BOOK_TITLE_REQUIRED" xml:space="preserve">
+    <value>O título do livro é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_BOOK_DESCRIPTION_REQUIRED" xml:space="preserve">
+    <value>A descrição do livro é obrigatória.</value>
+  </data>
+  <data name="VALIDATION_BOOK_PUBLICATION_DATE_INVALID" xml:space="preserve">
+    <value>A data de publicação não pode ser uma data futura.</value>
+  </data>
+  <data name="VALIDATION_BOOK_PUBLISHER_REQUIRED" xml:space="preserve">
+    <value>A editora é obrigatória.</value>
+  </data>
+  <data name="VALIDATION_BOOK_AUTHORS_REQUIRED" xml:space="preserve">
+    <value>Ao menos um autor deve ser informado.</value>
+  </data>
+  <data name="VALIDATION_BOOK_AUTHOR_ID_INVALID" xml:space="preserve">
+    <value>O identificador do autor é inválido.</value>
+  </data>
+  <data name="VALIDATION_BOOK_GENRES_REQUIRED" xml:space="preserve">
+    <value>Ao menos um gênero deve ser informado.</value>
+  </data>
+  <data name="VALIDATION_BOOK_GENRE_INVALID" xml:space="preserve">
+    <value>O gênero informado é inválido.</value>
+  </data>
+  <data name="VALIDATION_BOOK_LANGUAGES_REQUIRED" xml:space="preserve">
+    <value>Ao menos um idioma deve ser informado.</value>
+  </data>
+  <data name="VALIDATION_BOOK_LANGUAGE_INVALID" xml:space="preserve">
+    <value>O idioma informado é inválido.</value>
+  </data>
+  <data name="VALIDATION_BOOK_TITLE_MAX_LENGTH" xml:space="preserve">
+    <value>O título do livro não pode ter mais de 150 caracteres.</value>
+  </data>
+  <data name="VALIDATION_BOOK_DESCRIPTION_MAX_LENGTH" xml:space="preserve">
+    <value>A descrição do livro não pode ter mais de 250 caracteres.</value>
+  </data>
+  <data name="VALIDATION_AUTHOR_NAME_REQUIRED" xml:space="preserve">
+    <value>O nome do autor é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_AUTHOR_NAME_MAX_LENGTH" xml:space="preserve">
+    <value>O nome do autor nao deve ultrapassar 100 caracteres.</value>
+  </data>
+  <data name="VALIDATION_PUBLISHER_NAME_REQUIRED" xml:space="preserve">
+    <value>O nome da publicadora é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_PUBLISHER_NAME_MAX_LENGTH" xml:space="preserve">
+    <value>O nome da publicadora nao deve ultrapassar 100 caracteres.</value>
+  </data>
+  <data name="VALIDATION_BOOK_AUTHORS_DUPLICATED" xml:space="preserve">
+    <value>Não é permitido informar autores duplicados.</value>
+  </data>
+  <data name="VALIDATION_BOOK_GENRES_DUPLICATED" xml:space="preserve">
+    <value>Não é permitido informar gêneros duplicados.</value>
+  </data>
+  <data name="VALIDATION_BOOK_LANGUAGES_DUPLICATED" xml:space="preserve">
+    <value>Não é permitido informar idiomas duplicados.</value>
   </data>
 </root>
