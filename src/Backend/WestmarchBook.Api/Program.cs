@@ -16,11 +16,21 @@ using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Security.Tokens;
 using WestmarchBook.Exception;
 using WestmarchBook.Infrastructure;
+using WestmarchBook.Infrastructure.Converters;
 using WestmarchBook.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringConverter()));
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new StringConverter());
+
+    foreach (var converter in JsonOptionsHelper.Default.Converters)
+    {
+        options.JsonSerializerOptions.Converters.Add(converter);
+    }
+});
+
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen(options =>
 {
