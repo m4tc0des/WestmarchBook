@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using WestmarchBook.Domain.Entities;
+using WestmarchBook.Domain.Enums;
+using WestmarchBook.Infrastructure.Converters;
 
-[assembly:InternalsVisibleTo("WebApi.Tests")]
+[assembly: InternalsVisibleTo("WebApi.Tests")]
 namespace WestmarchBook.Infrastructure.DataAccess;
 
 internal sealed class WestmarchBookDbContext : DbContext
@@ -31,5 +34,17 @@ internal sealed class WestmarchBookDbContext : DbContext
             .HasMany(a => a.BookAuthors)
             .WithOne(ba => ba.Author)
             .HasForeignKey(ba => ba.AuthorId);
+
+        modelBuilder.Entity<Book>()
+        .Property(b => b.Genres)
+        .HasConversion(
+            v => JsonSerializer.Serialize(v, JsonOptionsHelper.Default),
+            v => JsonSerializer.Deserialize<ICollection<Genre>>(v, JsonOptionsHelper.Default)!);
+
+        modelBuilder.Entity<Book>()
+            .Property(b => b.Languages)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, JsonOptionsHelper.Default),
+                v => JsonSerializer.Deserialize<ICollection<Language>>(v, JsonOptionsHelper.Default)!);
     }
 }
