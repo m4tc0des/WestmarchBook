@@ -18,4 +18,5 @@ public enum Genre
     Adventure = 13,
     Dystopian = 14,
     Classic = 15,
+    Action = 16
 }
