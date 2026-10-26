@@ -1,12 +1,13 @@
 ﻿using Mapster;
 using WestmarchBook.Communication.Requests;
+using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Entities;
 
 namespace WestmarchBook.Application.Mappings;
 
-internal static class MapsterConfiguration
+public static class MapsterConfiguration
 {
-    internal static void Configure()
+    public static void Configure()
     {
         TypeAdapterConfig<RequestRegisterUserJson, User>
             .NewConfig()
@@ -17,6 +18,19 @@ internal static class MapsterConfiguration
             .Map(destination => destination.BookAuthors, request => request.Authors.Select(authorId => new BookAuthor
             {
                 AuthorId = authorId
+            }).ToList());
+
+        TypeAdapterConfig<Book, ResponseBookJson>
+            .NewConfig()
+            .Map(destination => destination.Publisher, source => new ResponsePublisherJson
+            {
+                Id = source.Publisher.Id,
+                Name = source.Publisher.Name
+            })
+            .Map(destination => destination.Authors, source => source.BookAuthors.Select(ba => new ResponseAuthorJson
+            {
+                Id = ba.Author.Id,
+                Name = ba.Author.Name
             }).ToList());
     }
 }
