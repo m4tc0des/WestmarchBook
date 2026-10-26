@@ -19,4 +19,12 @@ public class PublishersController : ControllerBase
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
     }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ResponsePublisherJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById([FromRoute] long id)
+    {
+        return Ok();
+    }
 }

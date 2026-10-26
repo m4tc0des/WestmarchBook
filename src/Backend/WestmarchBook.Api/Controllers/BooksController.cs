@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WestmarchBook.Application.UseCases.Book.GetById;
 using WestmarchBook.Application.UseCases.Book.Register;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
@@ -19,5 +20,14 @@ public class BooksController : ControllerBase
         var result = await useCase.Execute(request);
 
         return Created(string.Empty, result);
+    }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById([FromRoute] long id, [FromServices] IGetBookByIdUseCase useCase)
+    {
+        var book = await useCase.Execute(id);
+        return Ok(book);
     }
 }
