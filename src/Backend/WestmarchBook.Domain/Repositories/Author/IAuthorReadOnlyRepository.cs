@@ -3,4 +3,5 @@
 public interface IAuthorReadOnlyRepository
 {
     Task<bool> ExistActiveAuthorWithName(string name);
+    Task<Entities.Author?> GetById(long authorId);
 }
