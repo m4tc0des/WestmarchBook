@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WestmarchBook.Application.Mappings;
+using WestmarchBook.Application.UseCases.Author.GetById;
 using WestmarchBook.Application.UseCases.Author.Register;
+using WestmarchBook.Application.UseCases.Book.GetById;
 using WestmarchBook.Application.UseCases.Book.Register;
 using WestmarchBook.Application.UseCases.Login.WithEmailAndPassword;
 using WestmarchBook.Application.UseCases.Publisher.Register;
@@ -32,10 +34,12 @@ public static class DependencyInjectionExtension
             services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
 
             services.AddScoped<IRegisterAuthorUseCase, RegisterAuthorUseCase>();
+            services.AddScoped<IGetAuthorByIdUseCase, GetAuthorByIdUseCase>();
 
             services.AddScoped<IRegisterPublisherUseCase, RegisterPublisherUseCase>();
 
             services.AddScoped<IRegisterBookUseCase, RegisterBookUseCase>();
+            services.AddScoped<IGetBookByIdUseCase, GetBookByIdUseCase>();
         }
     }
 }

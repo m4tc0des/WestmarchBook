@@ -2,7 +2,7 @@ using FluentValidation;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Exception;
 
-namespace WestmarchBook.Application.UseCases.Book;
+namespace WestmarchBook.Application.UseCases.Book.Register;
 
 public class BookValidator : AbstractValidator<RequestRegisterBookJson>
 {
