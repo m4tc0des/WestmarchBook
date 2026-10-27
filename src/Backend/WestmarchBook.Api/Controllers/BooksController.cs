@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WestmarchBook.Application.UseCases.Book.ActiveById;
+using WestmarchBook.Application.UseCases.Book.DeleteById;
 using WestmarchBook.Application.UseCases.Book.GetById;
+using WestmarchBook.Application.UseCases.Book.InactiveById;
 using WestmarchBook.Application.UseCases.Book.Register;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
@@ -29,5 +32,35 @@ public class BooksController : ControllerBase
     {
         var book = await useCase.Execute(id);
         return Ok(book);
+    }
+
+    [HttpPatch("active/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ActiveById([FromRoute] long id, [FromServices] IActiveBookByIdUseCase useCase)
+    {
+        await useCase.Execute(id);
+
+        return Ok();
+    }
+
+    [HttpPatch("inactive/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> InactiveById([FromRoute] long id, [FromServices] IInactiveBookByIdUseCase useCase)
+    {
+        await useCase.Execute(id);
+
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteById([FromRoute] long id, [FromServices] IDeleteBookByIdUseCase useCase)
+    {
+        await useCase.Execute(id);
+
+        return Ok();
     }
 }
