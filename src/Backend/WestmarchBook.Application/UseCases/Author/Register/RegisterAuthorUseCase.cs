@@ -1,7 +1,6 @@
-﻿using Mapster;
+using Mapster;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
-using WestmarchBook.Domain.Identity;
 using WestmarchBook.Domain.Repositories;
 using WestmarchBook.Domain.Repositories.Author;
 using WestmarchBook.Exception;
@@ -11,14 +10,12 @@ namespace WestmarchBook.Application.UseCases.Author.Register;
 
 public class RegisterAuthorUseCase : IRegisterAuthorUseCase
 {
-    private readonly ILoggedUser _loggedUser;
     private readonly IAuthorWriteOnlyRepository _authorWriteRepository;
     private readonly IAuthorReadOnlyRepository _authorReadRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public RegisterAuthorUseCase(ILoggedUser loggedUser, IAuthorWriteOnlyRepository authorWriteRepository, IAuthorReadOnlyRepository authorReadRepository, IUnitOfWork unitOfWork)
+    public RegisterAuthorUseCase(IAuthorWriteOnlyRepository authorWriteRepository, IAuthorReadOnlyRepository authorReadRepository, IUnitOfWork unitOfWork)
     {
-        _loggedUser = loggedUser;
         _authorWriteRepository = authorWriteRepository;
         _authorReadRepository = authorReadRepository;
         _unitOfWork = unitOfWork;
