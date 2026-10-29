@@ -363,3 +363,11 @@ MigrationBackup/
 FodyWeavers.xsd
 /src/Backend/WestmarchBook.Api/appsettings.Development.json
 /src/Backend/WestmarchBook.Api/appsettings.Tests.json
+/src/Backend/WestmarchBook.Api/appsettings.demo.json
+
+# SQLite Database Files
+*.db
+*.db-shm
+*.db-wal
+/src/Backend/WestmarchBook.Api/appsettings.json
+*.json

@@ -2,6 +2,7 @@
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Entities;
+using WestmarchBook.Domain.Enums;
 
 namespace WestmarchBook.Application.Mappings;
 
@@ -18,6 +19,11 @@ public static class MapsterConfiguration
             .Map(destination => destination.BookAuthors, request => request.Authors.Select(authorId => new BookAuthor
             {
                 AuthorId = authorId
+            }).ToList())
+            .Map(destination => destination.BookCopies, request => request.RegistrationNumbers.Select(regNumber => new BookCopy
+            {
+                RegistrationNumber = regNumber,
+                CopyStatus = CopyStatus.Available
             }).ToList());
 
         TypeAdapterConfig<Book, ResponseBookJson>
