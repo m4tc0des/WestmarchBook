@@ -62,5 +62,9 @@ public class BookValidator : AbstractValidator<RequestRegisterBookJson>
         RuleForEach(book => book.Languages)
             .IsInEnum()
             .WithMessage(ResourceMessagesException.VALIDATION_BOOK_LANGUAGE_INVALID);
+
+        RuleFor(book => book.RegistrationNumbers)
+            .NotEmpty().
+            WithMessage(ResourceMessagesException.VALIDATION_BOOK_REGISTRATIONNUMBER_REQUIRED);
     }
 }
