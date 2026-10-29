@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.Book.ActiveById;
 using WestmarchBook.Application.UseCases.Book.DeleteById;
 using WestmarchBook.Application.UseCases.Book.GetById;
 using WestmarchBook.Application.UseCases.Book.InactiveById;
 using WestmarchBook.Application.UseCases.Book.Register;
+using WestmarchBook.Application.UseCases.Book.Update;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 
@@ -25,6 +26,17 @@ public class BooksController : ControllerBase
         return Created(string.Empty, result);
     }
 
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateById([FromRoute] long id, [FromBody] RequestUpdateBookJson request, [FromServices] IUpdateBookUseCase useCase)
+    {
+        await useCase.Execute(id, request);
+
+        return NoContent();
+    }
+
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -41,7 +53,7 @@ public class BooksController : ControllerBase
     {
         await useCase.Execute(id);
 
-        return Ok();
+        return NoContent();
     }
 
     [HttpPatch("inactive/{id}")]
@@ -51,7 +63,7 @@ public class BooksController : ControllerBase
     {
         await useCase.Execute(id);
 
-        return Ok();
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
@@ -61,6 +73,6 @@ public class BooksController : ControllerBase
     {
         await useCase.Execute(id);
 
-        return Ok();
+        return NoContent();
     }
 }
