@@ -6,6 +6,9 @@
     <Project Path="src/Backend/WestmarchBook.Domain/WestmarchBook.Domain.csproj" />
     <Project Path="src/Backend/WestmarchBook.Infrastructure/WestmarchBook.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Frontend/">
+    <Project Path="src/Frontend/WestmarchBook.Desktop/WestmarchBook.Desktop.csproj" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/WestmarchBook.Communication/WestmarchBook.Communication.csproj" />
     <Project Path="src/Shared/WestmarchBook.Exception/WestmarchBook.Exception.csproj" />
