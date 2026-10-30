@@ -1,0 +1,19 @@
+<maui:MauiWinUIApplication
+    x:Class="WestmarchBook.Desktop.WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:maui="using:Microsoft.Maui"
+    xmlns:local="using:WestmarchBook.Desktop.WinUI">
+    <maui:MauiWinUIApplication.Resources>
+        <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
+        <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
+        <SolidColorBrush x:Key="TextControlBackground" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBorderBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+        <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent" />
+    </maui:MauiWinUIApplication.Resources>
+</maui:MauiWinUIApplication>

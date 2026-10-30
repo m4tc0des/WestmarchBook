@@ -1,0 +1,1669 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:WestmarchBook.Desktop.ViewModels"
+             x:Class="WestmarchBook.Desktop.Views.MainWindow"
+             x:DataType="vm:MainViewModel"
+             Title=""
+             BackgroundColor="#1A1110"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TopMenuButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="#F5E8C7" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="CornerRadius" Value="2" />
+                <Setter Property="FontFamily" Value="Georgia" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Padding" Value="12,4" />
+                <Setter Property="MinimumHeightRequest" Value="28" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                    <Setter Property="TextColor" Value="#F5E8C7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#3A1D22" />
+                                    <Setter Property="TextColor" Value="#FFDF73" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="WindowCaptionBtnStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#2A1115" />
+                <Setter Property="TextColor" Value="#FFF8E7" />
+                <Setter Property="BorderColor" Value="#8B6914" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="CornerRadius" Value="2" />
+                <Setter Property="FontFamily" Value="Georgia" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="WidthRequest" Value="34" />
+                <Setter Property="HeightRequest" Value="28" />
+                <Setter Property="MinimumWidthRequest" Value="34" />
+                <Setter Property="MinimumHeightRequest" Value="28" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#2A1115" />
+                                    <Setter Property="BorderColor" Value="#8B6914" />
+                                    <Setter Property="TextColor" Value="#FFF8E7" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#8B2635" />
+                                    <Setter Property="BorderColor" Value="#FFDF73" />
+                                    <Setter Property="TextColor" Value="#FFFFFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ArpaActionBtnStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#2A1619" />
+                <Setter Property="TextColor" Value="#F5E8C7" />
+                <Setter Property="BorderColor" Value="#8B6914" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="CornerRadius" Value="3" />
+                <Setter Property="FontFamily" Value="Georgia" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Padding" Value="16,6" />
+                <Setter Property="MinimumHeightRequest" Value="32" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#8B2635" />
+                                    <Setter Property="BorderColor" Value="#D4AF37" />
+                                    <Setter Property="TextColor" Value="#FFFFFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ArpaDottedLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="Consolas" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="TextColor" Value="#E8DCC4" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="ArpaFieldBoxStyle" TargetType="Border">
+                <Setter Property="BackgroundColor" Value="#211716" />
+                <Setter Property="Stroke" Value="#7A6855" />
+                <Setter Property="StrokeThickness" Value="1" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 2" />
+                <Setter Property="Padding" Value="6,0" />
+                <Setter Property="HeightRequest" Value="28" />
+            </Style>
+
+            <Style x:Key="ArpaDialogBtnStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#2B211F" />
+                <Setter Property="TextColor" Value="#F5E8C7" />
+                <Setter Property="BorderColor" Value="#9E8970" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="CornerRadius" Value="2" />
+                <Setter Property="FontFamily" Value="Georgia" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="WidthRequest" Value="116" />
+                <Setter Property="HeightRequest" Value="32" />
+                <Setter Property="MinimumHeightRequest" Value="32" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#3E2D2A" />
+                                    <Setter Property="BorderColor" Value="#D4AF37" />
+                                    <Setter Property="TextColor" Value="#FFFFFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#8B2635" />
+                                    <Setter Property="BorderColor" Value="#D4AF37" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+        <Border Grid.Row="0"
+                BackgroundColor="#3D1418"
+                Stroke="#8B6914"
+                StrokeThickness="1"
+                Padding="12,4"
+                HeightRequest="38">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="SISTEMA WESTMARCHBOOK COM VALIDADE TEMPORÁRIA"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontFamily="Georgia"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       CharacterSpacing="1.4"
+                       TextColor="#D4AF37" />
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                    <Button Text="_"
+                            Style="{StaticResource WindowCaptionBtnStyle}"
+                            Clicked="OnMinimizeWindowClicked" />
+                    <Button Text="✕"
+                            Style="{StaticResource WindowCaptionBtnStyle}"
+                            Clicked="OnExitMenuClicked" />
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                BackgroundColor="#241316"
+                Stroke="#6B4423"
+                StrokeThickness="1"
+                Padding="8,2"
+                HeightRequest="34">
+            <HorizontalStackLayout Spacing="4">
+                <Button Text="Cadastros"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        Command="{Binding ToggleCadastrosSubmenuCommand}">
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnCadastrosPointerEntered" />
+                    </Button.GestureRecognizers>
+                </Button>
+
+                <Button Text="Manutenção"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        Clicked="OnGenericMenuClicked">
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnOtherMenuPointerEntered" />
+                    </Button.GestureRecognizers>
+                </Button>
+
+                <Button Text="Relatórios"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        Clicked="OnGenericMenuClicked">
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnOtherMenuPointerEntered" />
+                    </Button.GestureRecognizers>
+                </Button>
+
+                <Button Text="Utilitários"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        Clicked="OnGenericMenuClicked">
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnOtherMenuPointerEntered" />
+                    </Button.GestureRecognizers>
+                </Button>
+
+                <Button Text="Ajuda"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        Clicked="OnGenericMenuClicked">
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnOtherMenuPointerEntered" />
+                    </Button.GestureRecognizers>
+                </Button>
+
+                <Button Text="Sair"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        TextColor="#FFB4B4"
+                        Clicked="OnExitMenuClicked">
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnOtherMenuPointerEntered" />
+                    </Button.GestureRecognizers>
+                </Button>
+            </HorizontalStackLayout>
+        </Border>
+
+        <Border Grid.Row="2"
+                BackgroundColor="#221215"
+                Stroke="#8B6914"
+                StrokeThickness="1"
+                Padding="16,6"
+                HeightRequest="104">
+            <HorizontalStackLayout Spacing="16"
+                                   HorizontalOptions="Center" 
+                           VerticalOptions="Center">
+
+                <Border x:Name="ShortcutF2Border"
+                        BackgroundColor="#2E181C"
+                        Stroke="#D4AF37"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 4"
+                        Padding="10,4"
+                        WidthRequest="96"
+                        HeightRequest="92">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SwitchUserCommand}" />
+                        <PointerGestureRecognizer PointerEntered="OnShortcutPointerEntered"
+                                                  PointerExited="OnShortcutPointerExited" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="3" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Path WidthRequest="38"
+                              HeightRequest="34"
+                              Aspect="Uniform"
+                              HorizontalOptions="Center"
+                              Stroke="#FFF8E7"
+                              StrokeThickness="2"
+                              StrokeLineJoin="Round"
+                              StrokeLineCap="Round"
+                              Data="M 24,6 A 7,7 0 1 1 17,13 L 6,24 L 6,29 L 11,29 L 11,25 L 15,25 L 15,21 L 20,16 A 7,7 0 0 1 24,6 Z M 25,10 A 2,2 0 1 0 25,14 A 2,2 0 1 0 25,10 Z" />
+                        <Label Text="F2"
+                               FontFamily="Georgia"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="#FFFFFF" />
+                        <Label Text="Senha"
+                               FontFamily="Georgia"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#F5E8C7" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border x:Name="ShortcutF7Border"
+                        BackgroundColor="#2E181C"
+                        Stroke="#D4AF37"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 4"
+                        Padding="10,4"
+                        WidthRequest="96"
+                        HeightRequest="92">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenBooksModalCommand}" Tapped="OnBooksShortcutTapped" />
+                        <PointerGestureRecognizer PointerEntered="OnShortcutPointerEntered"
+                                                  PointerExited="OnShortcutPointerExited" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="3" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Path WidthRequest="38"
+                              HeightRequest="34"
+                              Aspect="Uniform"
+                              HorizontalOptions="Center"
+                              Stroke="#FFF8E7"
+                              StrokeThickness="2"
+                              StrokeLineJoin="Round"
+                              StrokeLineCap="Round"
+                              Data="M 4,7 C 9,5 15,5 19,8 C 23,5 29,5 34,7 L 34,27 C 29,25 23,25 19,28 C 15,25 9,25 4,27 Z M 19,8 L 19,28 M 8,12 L 15,12 M 8,17 L 15,17 M 23,12 L 30,12 M 23,17 L 30,17" />
+                        <Label Text="F7"
+                               FontFamily="Georgia"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="#FFFFFF" />
+                        <Label Text="Livros"
+                               FontFamily="Georgia"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#F5E8C7" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border x:Name="ShortcutF9Border"
+                        BackgroundColor="#2E181C"
+                        Stroke="#D4AF37"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 4"
+                        Padding="10,4"
+                        WidthRequest="96"
+                        HeightRequest="92">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenReadersModalCommand}" Tapped="OnReadersShortcutTapped" />
+                        <PointerGestureRecognizer PointerEntered="OnShortcutPointerEntered"
+                                                  PointerExited="OnShortcutPointerExited" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="3" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Path WidthRequest="38"
+                              HeightRequest="34"
+                              Aspect="Uniform"
+                              HorizontalOptions="Center"
+                              Stroke="#FFF8E7"
+                              StrokeThickness="2"
+                              StrokeLineJoin="Round"
+                              StrokeLineCap="Round"
+                              Data="M 19,4 A 4,4 0 1 0 19,12 A 4,4 0 1 0 19,4 M 11,21 C 11,16 15,15 19,15 C 23,15 27,16 27,21 M 6,22 C 11,20 15,20 19,22 C 23,20 27,20 32,22 L 32,30 C 27,28 23,28 19,30 C 15,28 11,28 6,30 Z M 19,22 L 19,30" />
+                        <Label Text="F9"
+                               FontFamily="Georgia"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="#FFFFFF" />
+                        <Label Text="Leitor"
+                               FontFamily="Georgia"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#F5E8C7" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </HorizontalStackLayout>
+        </Border>
+
+        <Border Grid.Row="2"
+                Grid.RowSpan="2"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="8,0,0,0"
+                WidthRequest="180"
+                BackgroundColor="#241316"
+                Stroke="#D4AF37"
+                StrokeThickness="1.5"
+                StrokeShape="RoundRectangle 4"
+                Padding="4"
+                ZIndex="50"
+                IsVisible="{Binding IsCadastrosSubmenuVisible}">
+            <Border.GestureRecognizers>
+                <PointerGestureRecognizer PointerExited="OnSubmenuPointerExited" />
+            </Border.GestureRecognizers>
+            <Border.Shadow>
+                <Shadow Brush="#000000" Offset="0,4" Radius="12" Opacity="0.85" />
+            </Border.Shadow>
+            <VerticalStackLayout Spacing="2">
+                <Button Text="📖  Livros (F7)"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        HorizontalOptions="Fill"
+                        Command="{Binding OpenBooksModalCommand}" />
+                <Button Text="👤  Leitores (F9)"
+                        Style="{StaticResource TopMenuButtonStyle}"
+                        HorizontalOptions="Fill"
+                        Command="{Binding OpenReadersModalCommand}" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Grid x:Name="WorkspaceArea" Grid.Row="3" BackgroundColor="#1A1110">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnWorkspaceTapped" />
+            </Grid.GestureRecognizers>
+
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10"
+                                 Opacity="0.35"
+                                 InputTransparent="True">
+                <Label Text="✦ WESTMARCH BOOK ✦"
+                       HorizontalOptions="Center"
+                       FontFamily="Georgia"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       CharacterSpacing="3"
+                       TextColor="#D4AF37" />
+                <Label Text="{Binding WelcomeMessage}"
+                       HorizontalOptions="Center"
+                       FontFamily="Georgia"
+                       FontSize="14"
+                       FontAttributes="Italic"
+                       TextColor="#D8C7A5" />
+            </VerticalStackLayout>
+
+            <Grid BackgroundColor="#AA090405"
+                  IsVisible="{Binding IsBooksListModalVisible}">
+
+                <Border HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        HeightRequest="680"
+                        WidthRequest="1140"
+                        BackgroundColor="#1C0E11"
+                        Stroke="#D4AF37"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 6">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,8" Radius="28" Opacity="0.95" />
+                    </Border.Shadow>
+
+                    <Grid RowDefinitions="Auto,*,Auto,Auto">
+
+                        <Border Grid.Row="0"
+                                BackgroundColor="#8B2635"
+                                Stroke="#D4AF37"
+                                StrokeThickness="1"
+                                Padding="14,6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="Livros"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       FontFamily="Georgia"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       CharacterSpacing="1"
+                                       TextColor="#FBF6E9" />
+                                <Button Grid.Column="1"
+                                        Text="✕"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#FBF6E9"
+                                        BorderWidth="0"
+                                        FontSize="14"
+                                        Padding="8,2"
+                                        MinimumHeightRequest="26"
+                                        Command="{Binding CloseBooksModalCommand}" />
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="1"
+                                Margin="10,10,10,6"
+                                BackgroundColor="#14090B"
+                                Stroke="#6B4423"
+                                StrokeThickness="1">
+                            <Grid RowDefinitions="Auto,*">
+                                <Grid Grid.Row="0"
+                                      ColumnDefinitions="75,*,190,170,115,90"
+                                      BackgroundColor="#2A1519"
+                                      Padding="10,6">
+                                    <Label Grid.Column="0" Text="CÓDIGO" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="1" Text="TÍTULO DO LIVRO" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="2" Text="PUBLICADORA" FontFamily="Georgia" FontSize="12" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="3" Text="AUTOR(ES)" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="4" Text="PUBLICAÇÃO" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="5" Text="STATUS" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                </Grid>
+
+                                <CollectionView Grid.Row="1"
+                                                ItemsSource="{Binding Books}"
+                                                SelectionMode="Single"
+                                                SelectedItem="{Binding SelectedBook}">
+                                    <CollectionView.EmptyView>
+                                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6" Padding="24">
+                                            <Label Text="Nenhum livro listado na sessão atual."
+                                                   FontFamily="Georgia"
+                                                   FontSize="13"
+                                                   FontAttributes="Italic"
+                                                   TextColor="#8A7761"
+                                                   HorizontalOptions="Center" />
+                                            <Label Text="Clique em 'Incluir' para cadastrar um novo livro ou busque pelo Código abaixo."
+                                                   FontFamily="Georgia"
+                                                   FontSize="11"
+                                                   TextColor="#6E5A48"
+                                                   HorizontalOptions="Center" />
+                                        </VerticalStackLayout>
+                                    </CollectionView.EmptyView>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:BookListItemViewModel">
+                                            <Border BackgroundColor="Transparent"
+                                                    Stroke="#2D171B"
+                                                    StrokeThickness="1"
+                                                    Padding="10,6">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup Name="CommonStates">
+                                                        <VisualState Name="Normal" />
+                                                        <VisualState Name="Selected">
+                                                            <VisualState.Setters>
+                                                                <Setter Property="BackgroundColor" Value="#4A1A22" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <Grid ColumnDefinitions="75,*,190,170,115,90">
+                                                    <Label Grid.Column="0" Text="{Binding Id}" FontFamily="Georgia" FontSize="12" TextColor="#D4AF37" />
+                                                    <Label Grid.Column="1" Text="{Binding Title}" FontFamily="Georgia" FontSize="12" TextColor="#F5E8C7" LineBreakMode="TailTruncation" />
+                                                    <Label Grid.Column="2" Text="{Binding PublisherName}" FontFamily="Georgia" FontSize="13" TextColor="#DDD0B8" LineBreakMode="TailTruncation" />
+                                                    <Label Grid.Column="3" Text="{Binding AuthorName}" FontFamily="Georgia" FontSize="12" TextColor="#DDD0B8" LineBreakMode="TailTruncation" />
+                                                    <Label Grid.Column="4" Text="{Binding PublicationDate, StringFormat='{0:dd/MM/yyyy}'}" FontFamily="Georgia" FontSize="12" TextColor="#BFA57A" />
+                                                    <Label Grid.Column="5" Text="{Binding StatusText}" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#85C989" />
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="2"
+                                Margin="10,0,10,6"
+                                BackgroundColor="#241316"
+                                Stroke="#6B4423"
+                                StrokeThickness="1"
+                                Padding="16,12"
+                                MinimumHeightRequest="78">
+                            <VerticalStackLayout Spacing="8">
+                                <Grid ColumnDefinitions="*,*">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding SelectedBook.Description, StringFormat='Descrição: {0}', TargetNullValue='Descrição: (Selecione um livro)'}"
+                                           FontFamily="Georgia"
+                                           FontSize="13"
+                                           TextColor="#F5E8C7"
+                                           LineBreakMode="TailTruncation" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding SelectedBook.GenresSummary, StringFormat='Gêneros: {0}'}"
+                                           FontFamily="Georgia"
+                                           FontSize="11"
+                                           TextColor="#D4AF37"
+                                           LineBreakMode="TailTruncation" />
+                                </Grid>
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding SelectedBook.LanguagesSummary, StringFormat='Linguagens: {0}'}"
+                                           FontFamily="Georgia"
+                                           FontSize="11"
+                                           TextColor="#BFA57A" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding ListStatusMessage}"
+                                           IsVisible="{Binding HasListStatusMessage}"
+                                           FontFamily="Georgia"
+                                           FontSize="11"
+                                           FontAttributes="Italic"
+                                           TextColor="#FFDF73" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Grid Grid.Row="3"
+                              BackgroundColor="#160B0D"
+                              RowDefinitions="Auto,Auto,Auto"
+                              Padding="14,8,14,12">
+                            <BoxView Grid.Row="0"
+                                     HeightRequest="1"
+                                     Color="#6B4423"
+                                     HorizontalOptions="Fill"
+                                     Margin="0,0,0,10" />
+
+                            <Grid Grid.Row="1"
+                                  ColumnDefinitions="*,*,*,*,*"
+                                  ColumnSpacing="10"
+                                  Margin="0,0,0,10">
+                                <Button Grid.Column="0"
+                                        Text="Incluir"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding OpenIncludeBookModalCommand}" />
+
+                                <Button Grid.Column="1"
+                                        Text="Alterar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding OpenEditBookModalCommand}" />
+
+                                <Button Grid.Column="2"
+                                        Text="Ativar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding ActivateBookCommand}" />
+
+                                <Button Grid.Column="3"
+                                        Text="Desativar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding DeactivateBookCommand}" />
+
+                                <Button Grid.Column="4"
+                                        Text="Deletar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        TextColor="#FFB4B4"
+                                        Clicked="OnDeleteBookClicked" />
+                            </Grid>
+
+                            <Grid Grid.Row="2"
+                                  ColumnDefinitions="Auto,*,Auto,150"
+                                  ColumnSpacing="10"
+                                  VerticalOptions="Center">
+                                <Label Grid.Column="0"
+                                       Text="Cons. Código / Título:"
+                                       VerticalOptions="Center"
+                                       FontFamily="Georgia"
+                                       FontSize="12"
+                                       TextColor="#D4AF37" />
+
+                                <Border Grid.Column="1" Style="{StaticResource WestmarchInputBorderStyle}">
+                                    <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                           FontSize="12"
+                                           MinimumHeightRequest="28"
+                                           Text="{Binding SearchText}"
+                                           Placeholder="Digite o ID ou título..."
+                                           ReturnType="Search"
+                                           Completed="OnSearchBookCompleted" />
+                                </Border>
+
+                                <Button Grid.Column="2"
+                                        Text="🔍 Buscar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        Padding="16,6"
+                                        Command="{Binding SearchBookCommand}" />
+
+                                <Button Grid.Column="3"
+                                        Text="(ESC) Fechar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding CloseBooksModalCommand}" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid BackgroundColor="#AA090405"
+                  IsVisible="{Binding IsReadersListModalVisible}">
+
+                <Border HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        HeightRequest="680"
+                        WidthRequest="1140"
+                        BackgroundColor="#1C0E11"
+                        Stroke="#D4AF37"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 6">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,8" Radius="28" Opacity="0.95" />
+                    </Border.Shadow>
+
+                    <Grid RowDefinitions="Auto,*,Auto,Auto">
+
+                        <Border Grid.Row="0"
+                                BackgroundColor="#8B2635"
+                                Stroke="#D4AF37"
+                                StrokeThickness="1"
+                                Padding="14,8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="LEITORES"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       FontFamily="Georgia"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       CharacterSpacing="1"
+                                       TextColor="#FBF6E9" />
+                                <Button Grid.Column="1"
+                                        Text="✕"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#FBF6E9"
+                                        BorderWidth="0"
+                                        FontSize="14"
+                                        Padding="8,2"
+                                        MinimumHeightRequest="26"
+                                        Command="{Binding CloseReadersModalCommand}" />
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="1"
+                                Margin="10,8,10,6"
+                                BackgroundColor="#14090B"
+                                Stroke="#6B4423"
+                                StrokeThickness="1">
+                            <Grid RowDefinitions="Auto,*">
+                                <Grid Grid.Row="0"
+                                      ColumnDefinitions="80,*,260,160,150,90"
+                                      BackgroundColor="#2A1519"
+                                      Padding="10,6">
+                                    <Label Grid.Column="0" Text="CÓDIGO" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="1" Text="NOME DO LEITOR" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="2" Text="E-MAIL" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="3" Text="TELEFONE" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="4" Text="DOCUMENTO" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                    <Label Grid.Column="5" Text="STATUS" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#D4AF37" />
+                                </Grid>
+                                <CollectionView Grid.Row="1"
+                                                ItemsSource="{Binding Readers}"
+                                                SelectionMode="Single"
+                                                SelectedItem="{Binding SelectedReader}">
+                                    <CollectionView.EmptyView>
+                                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6" Padding="24">
+                                            <Label Text="Nenhum leitor listado na sessão atual."
+                                                   FontFamily="Georgia"
+                                                   FontSize="13"
+                                                   FontAttributes="Italic"
+                                                   TextColor="#8A7761"
+                                                   HorizontalOptions="Center" />
+                                            <Label Text="Clique em 'Cadastrar' para registrar um leitor ou busque pelo Código/Nome abaixo."
+                                                   FontFamily="Georgia"
+                                                   FontSize="11"
+                                                   TextColor="#6E5A48"
+                                                   HorizontalOptions="Center" />
+                                        </VerticalStackLayout>
+                                    </CollectionView.EmptyView>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:ReaderListItemViewModel">
+                                            <Border BackgroundColor="Transparent"
+                                                    Stroke="#2D171B"
+                                                    StrokeThickness="1"
+                                                    Padding="10,6">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup Name="CommonStates">
+                                                        <VisualState Name="Normal" />
+                                                        <VisualState Name="Selected">
+                                                            <VisualState.Setters>
+                                                                <Setter Property="BackgroundColor" Value="#4A1A22" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <Grid ColumnDefinitions="80,*,260,160,150,90">
+                                                    <Label Grid.Column="0" Text="{Binding Id}" FontFamily="Georgia" FontSize="12" TextColor="#D4AF37" />
+                                                    <Label Grid.Column="1" Text="{Binding FullName}" FontFamily="Georgia" FontSize="12" TextColor="#F5E8C7" LineBreakMode="TailTruncation" />
+                                                    <Label Grid.Column="2" Text="{Binding Email}" FontFamily="Georgia" FontSize="12" TextColor="#DDD0B8" LineBreakMode="TailTruncation" />
+                                                    <Label Grid.Column="3" Text="{Binding Phone}" FontFamily="Georgia" FontSize="12" TextColor="#DDD0B8" />
+                                                    <Label Grid.Column="4" Text="{Binding DocumentNumber}" FontFamily="Georgia" FontSize="12" TextColor="#BFA57A" />
+                                                    <Label Grid.Column="5" Text="{Binding StatusText}" FontFamily="Georgia" FontSize="11" FontAttributes="Bold" TextColor="#85C989" />
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="2"
+                                Margin="10,0,10,8"
+                                BackgroundColor="#241316"
+                                Stroke="#6B4423"
+                                StrokeThickness="1"
+                                Padding="16,10"
+                                MinimumHeightRequest="60">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                    <Label Text="{Binding SelectedReader.FullName, StringFormat='Leitor: {0}', TargetNullValue='Leitor: (Nenhum selecionado)'}"
+                                           FontFamily="Georgia"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="#F5E8C7" />
+                                    <Label Text="{Binding SelectedReader.Email, StringFormat='E-mail: {0}', TargetNullValue=''}"
+                                           FontFamily="Georgia"
+                                           FontSize="11"
+                                           TextColor="#BFA57A" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1"
+                                       Text="{Binding ReaderListStatusMessage}"
+                                       IsVisible="{Binding HasReaderListStatusMessage}"
+                                       FontFamily="Georgia"
+                                       FontSize="12"
+                                       FontAttributes="Italic"
+                                       TextColor="#FFDF73"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                        <Grid Grid.Row="3"
+                              BackgroundColor="#160B0D"
+                              RowDefinitions="Auto,Auto,Auto"
+                              Padding="14,8,14,12">
+                            <BoxView Grid.Row="0"
+                                     HeightRequest="1"
+                                     Color="#6B4423"
+                                     HorizontalOptions="Fill"
+                                     Margin="0,0,0,10" />
+                            <Grid Grid.Row="1"
+                                  ColumnDefinitions="*,*,*,*"
+                                  ColumnSpacing="12"
+                                  Margin="0,0,0,10">
+                                <Button Grid.Column="0"
+                                        Text="Cadastrar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding OpenIncludeReaderModalCommand}" />
+
+                                <Button Grid.Column="1"
+                                        Text="Editar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding OpenEditReaderModalCommand}" />
+
+                                <Button Grid.Column="2"
+                                        Text="Ativar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding ActivateReaderCommand}" />
+
+                                <Button Grid.Column="3"
+                                        Text="Desativar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding DeactivateReaderCommand}" />
+                            </Grid>
+                            <Grid Grid.Row="2"
+                                  ColumnDefinitions="Auto,*,Auto,150"
+                                  ColumnSpacing="10"
+                                  VerticalOptions="Center">
+                                <Label Grid.Column="0"
+                                       Text="Cons. Código / Nome:"
+                                       VerticalOptions="Center"
+                                       FontFamily="Georgia"
+                                       FontSize="12"
+                                       TextColor="#D4AF37" />
+
+                                <Border Grid.Column="1" Style="{StaticResource WestmarchInputBorderStyle}">
+                                    <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                           FontSize="12"
+                                           MinimumHeightRequest="28"
+                                           Text="{Binding ReaderSearchText}"
+                                           Placeholder="Digite o código ou nome do leitor..."
+                                           ReturnType="Search"
+                                           Completed="OnSearchReaderCompleted" />
+                                </Border>
+
+                                <Button Grid.Column="2"
+                                        Text="🔍 Buscar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        Padding="16,6"
+                                        Command="{Binding SearchReaderCommand}" />
+
+                                <Button Grid.Column="3"
+                                        Text="(ESC) Fechar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding CloseReadersModalCommand}" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid BackgroundColor="#AA090405"
+                  IsVisible="{Binding IsReaderFormModalVisible}">
+
+                <Border HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="540"
+                        BackgroundColor="#1C0E11"
+                        Stroke="#D4AF37"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 6">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,8" Radius="28" Opacity="0.95" />
+                    </Border.Shadow>
+
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <Border Grid.Row="0"
+                                BackgroundColor="#8B2635"
+                                Stroke="#D4AF37"
+                                StrokeThickness="1"
+                                Padding="14,8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="{Binding ReaderFormTitle}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       FontFamily="Georgia"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       CharacterSpacing="1"
+                                       TextColor="#FBF6E9" />
+                                <Button Grid.Column="1"
+                                        Text="✕"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#FBF6E9"
+                                        BorderWidth="0"
+                                        FontSize="14"
+                                        Padding="8,2"
+                                        MinimumHeightRequest="26"
+                                        Command="{Binding CloseReaderFormModalCommand}" />
+                            </Grid>
+                        </Border>
+                        <VerticalStackLayout Grid.Row="1" Spacing="12" Padding="24,18">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Label Grid.Column="0" Text="CÓDIGO:" Style="{StaticResource FieldLabelStyle}" VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="{Binding ReaderCode}" FontFamily="Georgia" FontSize="13" FontAttributes="Bold" TextColor="#D4AF37" Margin="10,0,0,0" VerticalOptions="Center" />
+                            </Grid>
+                            <VerticalStackLayout Spacing="3">
+                                <Label Text="NOME COMPLETO *" Style="{StaticResource FieldLabelStyle}" />
+                                <Border Style="{StaticResource WestmarchInputBorderStyle}">
+                                    <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                           Text="{Binding ReaderFullName}"
+                                           Placeholder="Digite o nome completo do leitor..." />
+                                </Border>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="3">
+                                <Label Text="E-MAIL *" Style="{StaticResource FieldLabelStyle}" />
+                                <Border Style="{StaticResource WestmarchInputBorderStyle}">
+                                    <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                           Text="{Binding ReaderEmail}"
+                                           Keyboard="Email"
+                                           Placeholder="Digite o e-mail do leitor..." />
+                                </Border>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="3">
+                                <Label Text="TELEFONE *" Style="{StaticResource FieldLabelStyle}" />
+                                <Border Style="{StaticResource WestmarchInputBorderStyle}">
+                                    <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                           Text="{Binding ReaderPhone}"
+                                           Keyboard="Telephone"
+                                           Placeholder="(11) 99999-9999" />
+                                </Border>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="3">
+                                <Label Text="CPF / DOCUMENTO *" Style="{StaticResource FieldLabelStyle}" />
+                                <Border Style="{StaticResource WestmarchInputBorderStyle}">
+                                    <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                           Text="{Binding ReaderDocumentNumber}"
+                                           Placeholder="000.000.000-00" />
+                                </Border>
+                            </VerticalStackLayout>
+                            <Border BackgroundColor="#3D1418"
+                                    Stroke="#E57373"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 4"
+                                    Padding="10,6"
+                                    IsVisible="{Binding HasReaderFormError}">
+                                <Label Text="{Binding ReaderFormErrorMessage}"
+                                       TextColor="#FFB4B4"
+                                       FontSize="11"
+                                       FontFamily="Georgia"
+                                       LineBreakMode="WordWrap"
+                                       HorizontalOptions="Center" />
+                            </Border>
+                            <Label Text="Salvando leitor..."
+                                   TextColor="#D4AF37"
+                                   FontSize="12"
+                                   FontFamily="Georgia"
+                                   FontAttributes="Italic"
+                                   HorizontalOptions="Center"
+                                   IsVisible="{Binding IsReaderFormLoading}" />
+                        </VerticalStackLayout>
+                        <Border Grid.Row="2"
+                                BackgroundColor="#160B0D"
+                                Stroke="#6B4423"
+                                StrokeThickness="1"
+                                Padding="16,12">
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <Button Grid.Column="0"
+                                        Text="💾 Salvar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding SaveReaderCommand}"
+                                        IsEnabled="{Binding IsReaderFormNotLoading}" />
+
+                                <Button Grid.Column="1"
+                                        Text="(ESC) Cancelar"
+                                        Style="{StaticResource ArpaActionBtnStyle}"
+                                        HorizontalOptions="Fill"
+                                        Command="{Binding CloseReaderFormModalCommand}" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid x:Name="BookFormModalGrid"
+                  BackgroundColor="#AA060304"
+                  IsVisible="{Binding IsBookFormModalVisible}">
+
+                <Border HorizontalOptions="Center"
+                        VerticalOptions="Fill"
+                        Margin="0,6"
+                        WidthRequest="920"
+                        BackgroundColor="#1A1110"
+                        Stroke="#9E8970"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 3">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.95" />
+                    </Border.Shadow>
+
+                    <Grid RowDefinitions="Auto,Auto,*,Auto">
+                        <Grid Grid.Row="0"
+                              BackgroundColor="#B81D33"
+                              ColumnDefinitions="*,Auto"
+                              Padding="14,7">
+                            <Label Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding BookFormTitle}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="Georgia"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF" />
+                            <Button Grid.Column="1"
+                                    Text="✕"
+                                    BackgroundColor="#2B211F"
+                                    TextColor="#F5E8C7"
+                                    BorderColor="#7A6855"
+                                    BorderWidth="1"
+                                    CornerRadius="2"
+                                    FontSize="12"
+                                    WidthRequest="28"
+                                    HeightRequest="24"
+                                    MinimumWidthRequest="28"
+                                    MinimumHeightRequest="24"
+                                    Padding="0"
+                                    Command="{Binding CloseBookFormModalCommand}" />
+                        </Grid>
+                        <HorizontalStackLayout Grid.Row="1" Padding="14,10,14,0" Spacing="2">
+                            <Border BackgroundColor="#1A1110"
+                                    Stroke="#6E5D4F"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 2"
+                                    Padding="16,4">
+                                <Label Text="Principal"
+                                       FontFamily="Georgia"
+                                       FontSize="13"
+                                       TextColor="#D4AF37" />
+                            </Border>
+                        </HorizontalStackLayout>
+                        <Border Grid.Row="2"
+                                Margin="12,0,12,0"
+                                BackgroundColor="#1A1110"
+                                Stroke="#6E5D4F"
+                                StrokeThickness="1"
+                                Padding="18,16">
+                            <VerticalStackLayout Spacing="18" VerticalOptions="Fill">
+                                <Border BackgroundColor="#1A1110"
+                                        Stroke="#4E4037"
+                                        StrokeThickness="1"
+                                        Padding="16,14">
+                                    <VerticalStackLayout Spacing="12">
+                                        <Label Text="Informações Gerais"
+                                               FontFamily="Consolas"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#D4AF37"
+                                               Margin="0,0,0,4" />
+                                        <Grid ColumnDefinitions="155,120,*,Auto,125" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Código............:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    BackgroundColor="#150E0D">
+                                                <Entry Style="{StaticResource WestmarchEntryStyle}"
+                                                       FontSize="13"
+                                                       MinimumHeightRequest="28"
+                                                       HorizontalTextAlignment="End"
+                                                       Text="{Binding BookCode}"
+                                                       IsReadOnly="True"
+                                                       IsEnabled="False"
+                                                       TextColor="#D4AF37" />
+                                            </Border>
+
+                                            <Label Grid.Column="3"
+                                                   Text="Data Publicação:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="4"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    WidthRequest="125"
+                                                    HeightRequest="32"
+                                                    Padding="4,0,2,0">
+                                                <Grid ColumnDefinitions="*,26">
+                                                    <Entry x:Name="PublicationDateEntry"
+                                                           Grid.Column="0"
+                                                           Style="{StaticResource WestmarchEntryStyle}"
+                                                           FontSize="13"
+                                                           MinimumHeightRequest="28"
+                                                           HorizontalTextAlignment="Center"
+                                                           MaxLength="10"
+                                                           Keyboard="Numeric"
+                                                           Placeholder="  /  /    "
+                                                           PlaceholderColor="#7A6A58"
+                                                           Text="{Binding PublicationDateText}"
+                                                           ReturnType="Next"
+                                                           TextChanged="OnPublicationDateTextChanged"
+                                                           Completed="OnPublicationDateEntryCompleted" />
+                                                    <Grid Grid.Column="1" WidthRequest="24" HeightRequest="28" VerticalOptions="Center">
+                                                        <Label Text="📅"
+                                                               FontSize="12"
+                                                               TextColor="#D4AF37"
+                                                               HorizontalOptions="Center"
+                                                               VerticalOptions="Center"
+                                                               InputTransparent="True" />
+                                                        <DatePicker x:Name="PublicationDatePicker"
+                                                                    Date="{Binding PublicationDate}"
+                                                                    MaximumDate="{Binding MaximumPublicationDate}"
+                                                                    Format="dd/MM/yyyy"
+                                                                    Opacity="0.01"
+                                                                    WidthRequest="24"
+                                                                    HeightRequest="28"
+                                                                    HorizontalOptions="Fill"
+                                                                    VerticalOptions="Fill"
+                                                                    DateSelected="OnPublicationDateSelected" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                        <Grid ColumnDefinitions="155,*" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Título............:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32">
+                                                <Entry x:Name="BookTitleEntry"
+                                                       Style="{StaticResource WestmarchEntryStyle}"
+                                                       FontSize="13"
+                                                       MinimumHeightRequest="28"
+                                                       Text="{Binding BookTitle}"
+                                                       ReturnType="Next"
+                                                       Completed="OnBookTitleCompleted" />
+                                            </Border>
+                                        </Grid>
+                                        <Grid ColumnDefinitions="155,*" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Descrição.........:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    BackgroundColor="#281E17"
+                                                    Stroke="#9E824C">
+                                                <Entry x:Name="BookDescriptionEntry"
+                                                       Style="{StaticResource WestmarchEntryStyle}"
+                                                       FontSize="13"
+                                                       MinimumHeightRequest="28"
+                                                       Text="{Binding BookDescription}"
+                                                       ReturnType="Next"
+                                                       Completed="OnBookDescriptionCompleted" />
+                                            </Border>
+                                        </Grid>
+                                        <Grid ColumnDefinitions="155,*,96" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Autor.............:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    Padding="2,0">
+                                                <Picker x:Name="AuthorPicker"
+                                                        ItemsSource="{Binding AvailableAuthors}"
+                                                        SelectedItem="{Binding SelectedAuthorOption}"
+                                                        TextColor="#F5E8C7"
+                                                        BackgroundColor="Transparent"
+                                                        FontFamily="Georgia"
+                                                        FontSize="12" />
+                                            </Border>
+                                            <Button Grid.Column="2"
+                                                    Text="Incluir"
+                                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                                    WidthRequest="94"
+                                                    HeightRequest="32"
+                                                    MinimumHeightRequest="32"
+                                                    FontSize="12"
+                                                    Command="{Binding OpenQuickAuthorModalCommand}" />
+                                        </Grid>
+                                        <Grid ColumnDefinitions="155,*,96" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Publicadora.......:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    Padding="2,0">
+                                                <Picker x:Name="PublisherPicker"
+                                                        ItemsSource="{Binding AvailablePublishers}"
+                                                        SelectedItem="{Binding SelectedPublisherOption}"
+                                                        TextColor="#F5E8C7"
+                                                        BackgroundColor="Transparent"
+                                                        FontFamily="Georgia"
+                                                        FontSize="12" />
+                                            </Border>
+                                            <Button Grid.Column="2"
+                                                    Text="Incluir"
+                                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                                    WidthRequest="94"
+                                                    HeightRequest="32"
+                                                    MinimumHeightRequest="32"
+                                                    FontSize="12"
+                                                    Command="{Binding OpenQuickPublisherModalCommand}" />
+                                        </Grid>
+                                        <Grid ColumnDefinitions="155,*,96" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Exemplares........:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    BackgroundColor="#150E0D"
+                                                    Padding="6,2">
+                                                <ScrollView Orientation="Horizontal" VerticalScrollBarVisibility="Never">
+                                                    <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                                        <Label Text="Nenhum exemplar incluído (obrigatório)"
+                                                               TextColor="#8A7761"
+                                                               FontFamily="Georgia"
+                                                               FontSize="11"
+                                                               FontAttributes="Italic"
+                                                               VerticalOptions="Center"
+                                                               IsVisible="{Binding HasNoBookRegistrationNumbers}" />
+                                                        <HorizontalStackLayout BindableLayout.ItemsSource="{Binding BookRegistrationNumbers}"
+                                                                               Spacing="6"
+                                                                               VerticalOptions="Center">
+                                                            <BindableLayout.ItemTemplate>
+                                                                <DataTemplate x:DataType="x:String">
+                                                                    <Border BackgroundColor="#2B211F"
+                                                                            Stroke="#9E8970"
+                                                                            StrokeThickness="1"
+                                                                            StrokeShape="RoundRectangle 2"
+                                                                            Padding="6,2">
+                                                                        <HorizontalStackLayout Spacing="5">
+                                                                            <Label Text="{Binding .}"
+                                                                                   FontFamily="Consolas"
+                                                                                   FontSize="11"
+                                                                                   TextColor="#F5E8C7"
+                                                                                   VerticalOptions="Center" />
+                                                                            <Label Text="✕"
+                                                                                   FontSize="10"
+                                                                                   TextColor="#FFB4B4"
+                                                                                   VerticalOptions="Center">
+                                                                                <Label.GestureRecognizers>
+                                                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=RemoveCopyRegistrationNumberCommand}"
+                                                                                                          CommandParameter="{Binding .}" />
+                                                                                </Label.GestureRecognizers>
+                                                                            </Label>
+                                                                        </HorizontalStackLayout>
+                                                                    </Border>
+                                                                </DataTemplate>
+                                                            </BindableLayout.ItemTemplate>
+                                                        </HorizontalStackLayout>
+                                                    </HorizontalStackLayout>
+                                                </ScrollView>
+                                            </Border>
+                                            <Button Grid.Column="2"
+                                                    Text="Incluir"
+                                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                                    WidthRequest="94"
+                                                    HeightRequest="32"
+                                                    MinimumHeightRequest="32"
+                                                    FontSize="12"
+                                                    Command="{Binding OpenCopyModalCommand}" />
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+                                <Border BackgroundColor="#1A1110"
+                                        Stroke="#4E4037"
+                                        StrokeThickness="1"
+                                        Padding="16,14">
+                                    <VerticalStackLayout Spacing="12">
+                                        <Label Text="Informações de Classificação do Livro"
+                                               FontFamily="Consolas"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#D4AF37"
+                                               Margin="0,0,0,4" />
+                                        <Grid ColumnDefinitions="155,200,92,*" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Gênero............:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    Padding="2,0">
+                                                <Picker ItemsSource="{Binding AvailableGenres}"
+                                                        SelectedItem="{Binding SelectedGenreToAdd}"
+                                                        TextColor="#F5E8C7"
+                                                        BackgroundColor="Transparent"
+                                                        FontFamily="Georgia"
+                                                        FontSize="12" />
+                                            </Border>
+                                            <Button Grid.Column="2"
+                                                    Text="Incluir"
+                                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                                    WidthRequest="90"
+                                                    HeightRequest="32"
+                                                    MinimumHeightRequest="32"
+                                                    FontSize="12"
+                                                    Command="{Binding AddGenreCommand}" />
+                                            <Border Grid.Column="3"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    BackgroundColor="#150E0D"
+                                                    Padding="6,2">
+                                                <ScrollView Orientation="Horizontal" VerticalScrollBarVisibility="Never">
+                                                    <HorizontalStackLayout BindableLayout.ItemsSource="{Binding SelectedGenres}"
+                                                                           Spacing="6"
+                                                                           VerticalOptions="Center">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate x:DataType="vm:GenreOptionItem">
+                                                                <Border BackgroundColor="#2B211F"
+                                                                        Stroke="#9E8970"
+                                                                        StrokeThickness="1"
+                                                                        StrokeShape="RoundRectangle 2"
+                                                                        Padding="6,2">
+                                                                    <HorizontalStackLayout Spacing="5">
+                                                                        <Label Text="{Binding Name}"
+                                                                               FontFamily="Consolas"
+                                                                               FontSize="11"
+                                                                               TextColor="#F5E8C7"
+                                                                               VerticalOptions="Center" />
+                                                                        <Label Text="✕"
+                                                                               FontSize="10"
+                                                                               TextColor="#FFB4B4"
+                                                                               VerticalOptions="Center">
+                                                                            <Label.GestureRecognizers>
+                                                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=RemoveGenreCommand}"
+                                                                                                      CommandParameter="{Binding .}" />
+                                                                            </Label.GestureRecognizers>
+                                                                        </Label>
+                                                                    </HorizontalStackLayout>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </HorizontalStackLayout>
+                                                </ScrollView>
+                                            </Border>
+                                        </Grid>
+                                        <Grid ColumnDefinitions="155,200,92,*" ColumnSpacing="8">
+                                            <Label Grid.Column="0"
+                                                   Text="Linguagem.........:"
+                                                   Style="{StaticResource ArpaDottedLabelStyle}" />
+                                            <Border Grid.Column="1"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    Padding="2,0">
+                                                <Picker ItemsSource="{Binding AvailableLanguages}"
+                                                        SelectedItem="{Binding SelectedLanguageToAdd}"
+                                                        TextColor="#F5E8C7"
+                                                        BackgroundColor="Transparent"
+                                                        FontFamily="Georgia"
+                                                        FontSize="12" />
+                                            </Border>
+                                            <Button Grid.Column="2"
+                                                    Text="Incluir"
+                                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                                    WidthRequest="90"
+                                                    HeightRequest="32"
+                                                    MinimumHeightRequest="32"
+                                                    FontSize="12"
+                                                    Command="{Binding AddLanguageCommand}" />
+                                            <Border Grid.Column="3"
+                                                    Style="{StaticResource ArpaFieldBoxStyle}"
+                                                    HeightRequest="32"
+                                                    BackgroundColor="#150E0D"
+                                                    Padding="6,2">
+                                                <ScrollView Orientation="Horizontal" VerticalScrollBarVisibility="Never">
+                                                    <HorizontalStackLayout BindableLayout.ItemsSource="{Binding SelectedLanguages}"
+                                                                           Spacing="6"
+                                                                           VerticalOptions="Center">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate x:DataType="vm:LanguageOptionItem">
+                                                                <Border BackgroundColor="#2B211F"
+                                                                        Stroke="#9E8970"
+                                                                        StrokeThickness="1"
+                                                                        StrokeShape="RoundRectangle 2"
+                                                                        Padding="6,2">
+                                                                    <HorizontalStackLayout Spacing="5">
+                                                                        <Label Text="{Binding Name}"
+                                                                               FontFamily="Consolas"
+                                                                               FontSize="11"
+                                                                               TextColor="#F5E8C7"
+                                                                               VerticalOptions="Center" />
+                                                                        <Label Text="✕"
+                                                                               FontSize="10"
+                                                                               TextColor="#FFB4B4"
+                                                                               VerticalOptions="Center">
+                                                                            <Label.GestureRecognizers>
+                                                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=RemoveLanguageCommand}"
+                                                                                                      CommandParameter="{Binding .}" />
+                                                                            </Label.GestureRecognizers>
+                                                                        </Label>
+                                                                    </HorizontalStackLayout>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </HorizontalStackLayout>
+                                                </ScrollView>
+                                            </Border>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+                                <Label Text="{Binding FormErrorMessage}"
+                                       IsVisible="{Binding HasFormError}"
+                                       TextColor="#FFB4B4"
+                                       FontFamily="Georgia"
+                                       FontSize="13"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <HorizontalStackLayout Grid.Row="3"
+                                               HorizontalOptions="Center"
+                                               Spacing="160"
+                                               Padding="0,16,0,16">
+                            <Button Text="OK"
+                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                    WidthRequest="130"
+                                    HeightRequest="36"
+                                    Command="{Binding SaveBookCommand}"
+                                    IsEnabled="{Binding IsFormNotLoading}" />
+
+                            <Button Text="Fechar"
+                                    Style="{StaticResource ArpaDialogBtnStyle}"
+                                    WidthRequest="130"
+                                    HeightRequest="36"
+                                    Command="{Binding CloseBookFormModalCommand}"
+                                    IsEnabled="{Binding IsFormNotLoading}" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid x:Name="QuickEntityModalGrid"
+                  BackgroundColor="#AA040203"
+                  IsVisible="{Binding IsQuickEntityModalVisible}">
+
+                <Border HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="420"
+                        BackgroundColor="#1A1110"
+                        Stroke="#9E8970"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 3">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.98" />
+                    </Border.Shadow>
+
+                    <VerticalStackLayout Spacing="0">
+                        <Grid BackgroundColor="#B81D33"
+                              ColumnDefinitions="*,Auto"
+                              Padding="12,5">
+                            <Label Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding QuickEntityModalTitle}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF" />
+                            <Button Grid.Column="1"
+                                    Text="✕"
+                                    BackgroundColor="#2B211F"
+                                    TextColor="#F5E8C7"
+                                    BorderColor="#7A6855"
+                                    BorderWidth="1"
+                                    CornerRadius="2"
+                                    FontSize="12"
+                                    WidthRequest="26"
+                                    HeightRequest="22"
+                                    MinimumWidthRequest="26"
+                                    MinimumHeightRequest="22"
+                                    Padding="0"
+                                    Command="{Binding CloseQuickEntityModalCommand}" />
+                        </Grid>
+                        <VerticalStackLayout Padding="18,16" Spacing="10">
+                            <Grid ColumnDefinitions="80,*" ColumnSpacing="6">
+                                <Label Grid.Column="0"
+                                       Text="Nome....:"
+                                       Style="{StaticResource ArpaDottedLabelStyle}" />
+                                <Border Grid.Column="1" Style="{StaticResource ArpaFieldBoxStyle}">
+                                    <Entry x:Name="QuickEntityNameEntry"
+                                           Style="{StaticResource WestmarchEntryStyle}"
+                                           FontSize="13"
+                                           MinimumHeightRequest="26"
+                                           Text="{Binding QuickEntityName}"
+                                           ReturnType="Done"
+                                           Completed="OnQuickEntityCompleted" />
+                                </Border>
+                            </Grid>
+
+                            <Label Text="{Binding QuickEntityError}"
+                                   IsVisible="{Binding HasQuickEntityError}"
+                                   TextColor="#FFB4B4"
+                                   FontFamily="Georgia"
+                                   FontSize="11"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center" />
+
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="32" Margin="0,8,0,0">
+                                <Button Text="OK"
+                                        Style="{StaticResource ArpaDialogBtnStyle}"
+                                        Command="{Binding SaveQuickEntityCommand}"
+                                        IsEnabled="{Binding IsQuickEntityNotLoading}" />
+
+                                <Button Text="Fechar"
+                                        Style="{StaticResource ArpaDialogBtnStyle}"
+                                        Command="{Binding CloseQuickEntityModalCommand}"
+                                        IsEnabled="{Binding IsQuickEntityNotLoading}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+            <Grid x:Name="CopyRegistrationModalGrid"
+                  BackgroundColor="#AA040203"
+                  IsVisible="{Binding IsCopyModalVisible}">
+
+                <Border HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="460"
+                        BackgroundColor="#1A1110"
+                        Stroke="#9E8970"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 3">
+                    <Border.Shadow>
+                        <Shadow Brush="#000000" Offset="0,8" Radius="24" Opacity="0.98" />
+                    </Border.Shadow>
+
+                    <VerticalStackLayout Spacing="0">
+                        <Grid BackgroundColor="#B81D33"
+                              ColumnDefinitions="*,Auto"
+                              Padding="12,5">
+                            <Label Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="INCLUSÃO DE EXEMPLARES"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF" />
+                            <Button Grid.Column="1"
+                                    Text="✕"
+                                    BackgroundColor="#2B211F"
+                                    TextColor="#F5E8C7"
+                                    BorderColor="#7A6855"
+                                    BorderWidth="1"
+                                    CornerRadius="2"
+                                    FontSize="12"
+                                    WidthRequest="26"
+                                    HeightRequest="22"
+                                    MinimumWidthRequest="26"
+                                    MinimumHeightRequest="22"
+                                    Padding="0"
+                                    Command="{Binding CloseCopyModalCommand}" />
+                        </Grid>
+                        <VerticalStackLayout Padding="18,16" Spacing="12">
+                            <Label Text="Informe o número de registro de cada cópia física:"
+                                   FontFamily="Georgia"
+                                   FontSize="12"
+                                   FontAttributes="Italic"
+                                   TextColor="#DDD0B8" />
+                            <Grid ColumnDefinitions="110,*" ColumnSpacing="6">
+                                <Label Grid.Column="0"
+                                       Text="Nº Registro..:"
+                                       Style="{StaticResource ArpaDottedLabelStyle}" />
+                                <Border Grid.Column="1" Style="{StaticResource ArpaFieldBoxStyle}">
+                                    <Entry x:Name="CopyRegistrationNumberEntry"
+                                           Style="{StaticResource WestmarchEntryStyle}"
+                                           FontSize="13"
+                                           MinimumHeightRequest="26"
+                                           Placeholder="Ex: REG-001, 1024..."
+                                           Text="{Binding CopyRegistrationNumberInput}"
+                                           ReturnType="Next"
+                                           Completed="OnCopyRegistrationCompleted" />
+                                </Border>
+                            </Grid>
+                            <Border BackgroundColor="{Binding CopyFeedbackBackgroundColor}"
+                                    Stroke="{Binding CopyFeedbackStrokeColor}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 4"
+                                    Padding="8,6"
+                                    IsVisible="{Binding HasCopyFeedbackMessage}">
+                                <Label Text="{Binding CopyFeedbackMessage}"
+                                       TextColor="{Binding CopyFeedbackTextColor}"
+                                       FontFamily="Georgia"
+                                       FontSize="12"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </Border>
+                            <Label Text="{Binding CopySummaryText}"
+                                   TextColor="#D4AF37"
+                                   FontFamily="Consolas"
+                                   FontSize="11"
+                                   HorizontalOptions="Center" />
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="24" Margin="0,6,0,0">
+                                <Button Text="Registrar"
+                                        Style="{StaticResource ArpaDialogBtnStyle}"
+                                        WidthRequest="110"
+                                        Command="{Binding AddCopyRegistrationNumberCommand}" />
+
+                                <Button Text="Fechar"
+                                        Style="{StaticResource ArpaDialogBtnStyle}"
+                                        WidthRequest="110"
+                                        Command="{Binding CloseCopyModalCommand}" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+        </Grid>
+        <Border Grid.Row="4"
+                BackgroundColor="#14090B"
+                Stroke="#8B6914"
+                StrokeThickness="1"
+                Padding="16,8"
+                HeightRequest="42">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
+                <HorizontalStackLayout Grid.Column="0" Spacing="14" VerticalOptions="Center">
+                    <Label Text="✦ WESTMARCH"
+                           FontFamily="Georgia"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.8"
+                           TextColor="#D4AF37"
+                           VerticalOptions="Center" />
+
+                    <Label FontFamily="Georgia" FontSize="12" VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Usuário: " TextColor="#BFA57A" />
+                                <Span Text="{Binding UserName}" FontAttributes="Bold" TextColor="#FFF8E7" />
+                                <Span Text=" | Servidor: " TextColor="#BFA57A" />
+                                <Span Text="{Binding ServerName}" FontAttributes="Bold" TextColor="#FFF8E7" />
+                                <Span Text=" | Base: " TextColor="#BFA57A" />
+                                <Span Text="{Binding DatabaseName}" FontAttributes="Bold" TextColor="#FFF8E7" />
+                                <Span Text=" | Versão: " TextColor="#BFA57A" />
+                                <Span Text="{Binding AppVersion}" FontAttributes="Bold" TextColor="#D4AF37" />
+                                <Span Text=" |" TextColor="#BFA57A" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="2" Spacing="8" VerticalOptions="Center">
+                    <Label Text="{Binding CurrentDateTime}"
+                           FontFamily="Georgia"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#FFF8E7"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

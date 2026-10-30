@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:WestmarchBook.Desktop.ViewModels"
+             x:Class="WestmarchBook.Desktop.Views.LoginWindow"
+             x:DataType="vm:LoginViewModel"
+             Title="Westmarch - Sistema de Gestao de Livros"
+             BackgroundColor="#14090B"
+             NavigationPage.HasNavigationBar="False">
+
+    <Border Margin="14"
+            BackgroundColor="#1C0E11"
+            Stroke="#8B6914"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 8">
+        <Border.Shadow>
+            <Shadow Brush="#000000" Offset="0,4" Radius="20" Opacity="0.9" />
+        </Border.Shadow>
+
+        <Border Margin="4"
+                BackgroundColor="Transparent"
+                Stroke="#D4AF37"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 6"
+                Padding="32,20">
+
+            <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+                <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center" Spacing="4">
+                    <Label Text="WESTMARCH BOOK"
+                           HorizontalOptions="Center"
+                           FontFamily="Georgia"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           CharacterSpacing="3"
+                           TextColor="#D4AF37" />
+
+                    <BoxView HeightRequest="1"
+                             WidthRequest="200"
+                             Color="#8B6914"
+                             HorizontalOptions="Center"
+                             Margin="0,10,0,12" />
+                </VerticalStackLayout>
+
+                <Label Grid.Row="1"
+                       Text="Faca o login para ter acesso:"
+                       FontFamily="Georgia"
+                       FontSize="12"
+                       FontAttributes="Italic"
+                       TextColor="#DDD0B8"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,14" />
+
+                <VerticalStackLayout Grid.Row="2" Spacing="12" VerticalOptions="Center">
+
+                    <Border BackgroundColor="#1A2D1B"
+                            Stroke="#85C989"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 4"
+                            Padding="10,8"
+                            IsVisible="{Binding HasSuccess}">
+                        <Label Text="{Binding SuccessMessage}"
+                               TextColor="#C8F2CA"
+                               FontSize="12"
+                               FontFamily="Georgia"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </Border>
+
+                    <VerticalStackLayout>
+                        <Label Text="E-MAIL DE ACESSO" Style="{StaticResource FieldLabelStyle}" />
+                        <Border x:Name="EmailBorder" Style="{StaticResource WestmarchInputBorderStyle}">
+                            <Entry x:Name="EmailTextBox"
+                                   Style="{StaticResource WestmarchEntryStyle}"
+                                   Text="{Binding Email}"
+                                   Placeholder="Digite seu e-mail..."
+                                   Keyboard="Email"
+                                   IsSpellCheckEnabled="False"
+                                   IsTextPredictionEnabled="False"
+                                   ReturnType="Next"
+                                   Focused="OnInputFocused"
+                                   Unfocused="OnInputUnfocused"
+                                   Completed="OnEmailCompleted" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout>
+                        <Label Text="SENHA" Style="{StaticResource FieldLabelStyle}" />
+                        <Border x:Name="PasswordBorder" Style="{StaticResource WestmarchInputBorderStyle}">
+                            <Entry x:Name="PasswordTextBox"
+                                   Style="{StaticResource WestmarchEntryStyle}"
+                                   Text="{Binding Password}"
+                                   IsPassword="True"
+                                   Placeholder="Digite sua senha..."
+                                   ReturnType="Done"
+                                   Focused="OnInputFocused"
+                                   Unfocused="OnInputUnfocused"
+                                   Completed="OnPasswordCompleted" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Border BackgroundColor="#3D1418"
+                            Stroke="#E57373"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 4"
+                            Padding="10,8"
+                            IsVisible="{Binding HasError}">
+                        <Label Text="{Binding ErrorMessage}"
+                               TextColor="#FFB4B4"
+                               FontSize="12"
+                               FontFamily="Georgia"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </Border>
+
+                    <Label Text="Log-in..."
+                           TextColor="#D4AF37"
+                           FontSize="12"
+                           FontFamily="Georgia"
+                           FontAttributes="Italic"
+                           HorizontalOptions="Center"
+                           IsVisible="{Binding IsLoading}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="3" Spacing="28" Margin="0,14,0,0">
+                    <Button Style="{StaticResource WestmarchButtonStyle}"
+                            Text="Login"
+                            Command="{Binding LoginCommand}"
+                            IsEnabled="{Binding IsNotLoading}" />
+
+                    <Button Style="{StaticResource WestmarchLinkButtonStyle}"
+                            Text="Não tem uma conta? Cadastre-se aqui"
+                            Command="{Binding OpenRegisterCommand}" />
+
+                    <Label Text="« Nem todos os que vagueiam estão perdidos »"
+                           HorizontalOptions="Center"
+                           FontFamily="Georgia"
+                           FontSize="13"
+                           FontAttributes="Italic"
+                           TextColor="#8A7761"
+                           Margin="0,4,0,0" />
+                    <Label x:Name="VersionLabel"
+                           HorizontalOptions="Center"
+                           FontFamily="Georgia"
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           TextColor="#8A7761"
+                           Margin="0,4,0,0" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </Border>
+</ContentPage>
