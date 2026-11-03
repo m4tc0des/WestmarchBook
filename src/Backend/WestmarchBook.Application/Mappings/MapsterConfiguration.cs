@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Entities;
@@ -37,6 +37,7 @@ public static class MapsterConfiguration
             {
                 Id = ba.Author.Id,
                 Name = ba.Author.Name
-            }).ToList());
+            }).ToList())
+            .Map(destination => destination.RegistrationNumbers, source => source.BookCopies.Select(bc => bc.RegistrationNumber).ToList());
     }
 }
