@@ -27,7 +27,7 @@ public class UpdateUserUseCase : IUpdateUserUseCase
     {
         var loggedUser = await _loggedUser.GetProfile();
 
-        await Validate(request, loggedUser);
+        await ValidateAndThrowOnFailures(request, loggedUser);
 
         loggedUser.UserName = request.UserName;
         loggedUser.Email = request.Email;
@@ -37,7 +37,7 @@ public class UpdateUserUseCase : IUpdateUserUseCase
         await _unitOfWork.Commit();
     }
 
-    private async Task Validate(RequestUpdateUserJson request, Domain.Entities.User loggedUser)
+    private async Task ValidateAndThrowOnFailures(RequestUpdateUserJson request, Domain.Entities.User loggedUser)
     {
         var validator = new UpdateUserValidator();
 
