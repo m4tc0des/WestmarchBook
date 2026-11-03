@@ -1,4 +1,3 @@
-using WestmarchBook.Application.UseCases.Book.Register;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Domain.Entities;
 using WestmarchBook.Domain.Repositories;
@@ -32,7 +31,7 @@ public class UpdateBookUseCase : IUpdateBookUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Execute(long id, RequestUpdateBookJson request)
+    public async Task Execute(long id, RequestRegisterBookJson request)
     {
         var book = await _bookUpdateRepository.GetById(id);
 
@@ -60,12 +59,40 @@ public class UpdateBookUseCase : IUpdateBookUseCase
             });
         }
 
+        var newRegNumbers = request.RegistrationNumbers
+            .Where(r => !string.IsNullOrWhiteSpace(r))
+            .Select(r => r.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var copiesToRemove = book.BookCopies
+            .Where(c => !newRegNumbers.Any(nr => string.Equals(nr, c.RegistrationNumber, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+
+        foreach (var copy in copiesToRemove)
+        {
+            book.BookCopies.Remove(copy);
+        }
+
+        foreach (var regNum in newRegNumbers)
+        {
+            if (!book.BookCopies.Any(c => string.Equals(c.RegistrationNumber, regNum, StringComparison.OrdinalIgnoreCase)))
+            {
+                book.BookCopies.Add(new BookCopy
+                {
+                    BookId = book.Id,
+                    RegistrationNumber = regNum,
+                    CopyStatus = Domain.Enums.CopyStatus.Available
+                });
+            }
+        }
+
         _bookUpdateRepository.Update(book);
 
         await _unitOfWork.Commit();
     }
 
-    private async Task ValidateAndThrowOnFailures(long currentBookId, RequestUpdateBookJson request)
+    private async Task ValidateAndThrowOnFailures(long currentBookId, RequestRegisterBookJson request)
     {
         var result = new BookValidator().Validate(request);
 
