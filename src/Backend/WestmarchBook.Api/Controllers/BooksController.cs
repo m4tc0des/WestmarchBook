@@ -26,11 +26,11 @@ public class BooksController : ControllerBase
         return Created(string.Empty, result);
     }
 
-    [HttpPut("{id}")]
+    [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateById([FromRoute] long id, [FromBody] RequestUpdateBookJson request, [FromServices] IUpdateBookUseCase useCase)
+    public async Task<IActionResult> UpdateById([FromRoute] long id, [FromBody] RequestRegisterBookJson request, [FromServices] IUpdateBookUseCase useCase)
     {
         await useCase.Execute(id, request);
 
@@ -74,5 +74,12 @@ public class BooksController : ControllerBase
         await useCase.Execute(id);
 
         return NoContent();
+    }
+
+    [HttpPost("filter")]
+    [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Filter([FromBody] RequestFilterBookJson? request)
+    {
+        return Ok();
     }
 }
