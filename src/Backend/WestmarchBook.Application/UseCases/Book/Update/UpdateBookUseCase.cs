@@ -31,7 +31,7 @@ public class UpdateBookUseCase : IUpdateBookUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Execute(long id, RequestRegisterBookJson request)
+    public async Task Execute(long id, RequestUpdateBookJson request)
     {
         var book = await _bookUpdateRepository.GetById(id);
 
@@ -42,48 +42,73 @@ public class UpdateBookUseCase : IUpdateBookUseCase
 
         await ValidateAndThrowOnFailures(id, request);
 
-        book.Title = request.Title.Trim();
-        book.Description = request.Description.Trim();
-        book.PublicationDate = request.PublicationDate;
-        book.PublisherId = request.PublisherId;
-        book.Genres = request.Genres.Distinct().Select(g => (Domain.Enums.Genre)g).ToList();
-        book.Languages = request.Languages.Distinct().Select(l => (Domain.Enums.Language)l).ToList();
-
-        book.BookAuthors.Clear();
-        foreach (var authorId in request.Authors.Distinct())
+        if (request.Title is not null)
         {
-            book.BookAuthors.Add(new BookAuthor
-            {
-                BookId = book.Id,
-                AuthorId = authorId
-            });
+            book.Title = request.Title.Trim();
         }
 
-        var newRegNumbers = request.RegistrationNumbers
-            .Where(r => !string.IsNullOrWhiteSpace(r))
-            .Select(r => r.Trim())
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToList();
-
-        var copiesToRemove = book.BookCopies
-            .Where(c => !newRegNumbers.Any(nr => string.Equals(nr, c.RegistrationNumber, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
-
-        foreach (var copy in copiesToRemove)
+        if (request.Description is not null)
         {
-            book.BookCopies.Remove(copy);
+            book.Description = request.Description.Trim();
         }
 
-        foreach (var regNum in newRegNumbers)
+        if (request.PublicationDate.HasValue)
         {
-            if (!book.BookCopies.Any(c => string.Equals(c.RegistrationNumber, regNum, StringComparison.OrdinalIgnoreCase)))
+            book.PublicationDate = request.PublicationDate.Value;
+        }
+
+        if (request.PublisherId.HasValue)
+        {
+            book.PublisherId = request.PublisherId.Value;
+        }
+
+        if (request.Genres is not null)
+        {
+            book.Genres = request.Genres.Distinct().Select(g => (Domain.Enums.Genre)g).ToList();
+        }
+
+
+        if (request.Authors is not null)
+        {
+            book.BookAuthors.Clear();
+            foreach (var authorId in request.Authors.Distinct())
             {
-                book.BookCopies.Add(new BookCopy
+                book.BookAuthors.Add(new BookAuthor
                 {
                     BookId = book.Id,
-                    RegistrationNumber = regNum,
-                    CopyStatus = Domain.Enums.CopyStatus.Available
+                    AuthorId = authorId
                 });
+            }
+        }
+
+        if (request.RegistrationNumbers is not null)
+        {
+            var newRegNumbers = request.RegistrationNumbers
+                .Where(r => !string.IsNullOrWhiteSpace(r))
+                .Select(r => r.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            var copiesToRemove = book.BookCopies
+                .Where(c => !newRegNumbers.Any(nr => string.Equals(nr, c.RegistrationNumber, StringComparison.OrdinalIgnoreCase)))
+                .ToList();
+
+            foreach (var copy in copiesToRemove)
+            {
+                book.BookCopies.Remove(copy);
+            }
+
+            foreach (var regNum in newRegNumbers)
+            {
+                if (!book.BookCopies.Any(c => string.Equals(c.RegistrationNumber, regNum, StringComparison.OrdinalIgnoreCase)))
+                {
+                    book.BookCopies.Add(new BookCopy
+                    {
+                        BookId = book.Id,
+                        RegistrationNumber = regNum,
+                        CopyStatus = Domain.Enums.CopyStatus.Available
+                    });
+                }
             }
         }
 
@@ -92,9 +117,9 @@ public class UpdateBookUseCase : IUpdateBookUseCase
         await _unitOfWork.Commit();
     }
 
-    private async Task ValidateAndThrowOnFailures(long currentBookId, RequestRegisterBookJson request)
+    private async Task ValidateAndThrowOnFailures(long currentBookId, RequestUpdateBookJson request)
     {
-        var result = new BookValidator().Validate(request);
+        var result = new UpdateBookValidator().Validate(request);
 
         if (result.IsValid == false)
         {
@@ -103,22 +128,31 @@ public class UpdateBookUseCase : IUpdateBookUseCase
 
         var errors = new List<string>();
 
-        var existsBookWithSameTitle = await _bookReadOnlyRepository.ExistActiveBookWithTitle(request.Title, currentBookId);
-        if (existsBookWithSameTitle)
+        if (!string.IsNullOrWhiteSpace(request.Title))
         {
-            errors.Add(ResourceMessagesException.VALIDATION_BOOK_TITLE_ALREADY_EXISTS);
+            var existsBookWithSameTitle = await _bookReadOnlyRepository.ExistActiveBookWithTitle(request.Title.Trim(), currentBookId);
+            if (existsBookWithSameTitle)
+            {
+                errors.Add(ResourceMessagesException.VALIDATION_BOOK_TITLE_ALREADY_EXISTS);
+            }
         }
 
-        var publisherExists = await _publisherReadOnlyRepository.ExistActivePublisherWithId(request.PublisherId);
-        if (!publisherExists)
+        if (request.PublisherId.HasValue)
         {
-            errors.Add(ResourceMessagesException.VALIDATION_PUBLISHER_NOT_FOUND);
+            var publisherExists = await _publisherReadOnlyRepository.ExistActivePublisherWithId(request.PublisherId.Value);
+            if (!publisherExists)
+            {
+                errors.Add(ResourceMessagesException.VALIDATION_PUBLISHER_NOT_FOUND);
+            }
         }
 
-        var authorsExist = await _authorReadOnlyRepository.ExistActiveAuthorsWithIds(request.Authors);
-        if (!authorsExist)
+        if (request.Authors is not null && request.Authors.Count > 0)
         {
-            errors.Add(ResourceMessagesException.VALIDATION_AUTHOR_NOT_FOUND);
+            var authorsExist = await _authorReadOnlyRepository.ExistActiveAuthorsWithIds(request.Authors);
+            if (!authorsExist)
+            {
+                errors.Add(ResourceMessagesException.VALIDATION_AUTHOR_NOT_FOUND);
+            }
         }
 
         if (errors.Count > 0)

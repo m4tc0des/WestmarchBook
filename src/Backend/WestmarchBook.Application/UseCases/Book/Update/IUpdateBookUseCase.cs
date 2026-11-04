@@ -4,5 +4,5 @@ namespace WestmarchBook.Application.UseCases.Book.Update;
 
 public interface IUpdateBookUseCase
 {
-    Task Execute(long id, RequestRegisterBookJson request);
+    Task Execute(long id, RequestUpdateBookJson request);
 }
