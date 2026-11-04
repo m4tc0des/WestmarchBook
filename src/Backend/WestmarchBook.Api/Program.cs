@@ -62,7 +62,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new List<CultureInfo> { new("pt-BR"), new("en") };
+    var supportedCultures = new List<CultureInfo> { new("pt-BR") };
 
     options.DefaultRequestCulture = new RequestCulture("pt-BR");
     options.SupportedCultures = supportedCultures;
