@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.Book.ActiveById;
 using WestmarchBook.Application.UseCases.Book.DeleteById;
+using WestmarchBook.Application.UseCases.Book.Filter;
 using WestmarchBook.Application.UseCases.Book.GetById;
 using WestmarchBook.Application.UseCases.Book.InactiveById;
 using WestmarchBook.Application.UseCases.Book.Register;
@@ -30,7 +31,7 @@ public class BooksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateById([FromRoute] long id, [FromBody] RequestRegisterBookJson request, [FromServices] IUpdateBookUseCase useCase)
+    public async Task<IActionResult> UpdateById([FromRoute] long id, [FromBody] RequestUpdateBookJson request, [FromServices] IUpdateBookUseCase useCase)
     {
         await useCase.Execute(id, request);
 
@@ -77,9 +78,10 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost("filter")]
-    [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Filter([FromBody] RequestFilterBookJson? request)
+    [ProducesResponseType(typeof(ResponseBooksJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Filter([FromBody] RequestFilterBookJson? request, [FromServices] IFilterBookUseCase useCase)
     {
-        return Ok();
+        var result = await useCase.Execute(request);
+        return Ok(result);
     }
 }
