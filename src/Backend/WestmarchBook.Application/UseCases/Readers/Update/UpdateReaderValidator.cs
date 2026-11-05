@@ -1,11 +1,12 @@
-﻿using FluentValidation;
+using FluentValidation;
 using WestmarchBook.Application.UseCases.Shared.Validators;
 using WestmarchBook.Communication.Requests;
+using WestmarchBook.Domain.Constants;
 using WestmarchBook.Exception;
 
 namespace WestmarchBook.Application.UseCases.Readers.Update;
 
-public class UpdateReaderValidator: AbstractValidator<RequestUpdateReaderJson>
+public class UpdateReaderValidator : AbstractValidator<RequestUpdateReaderJson>
 {
     public UpdateReaderValidator()
     {
@@ -17,5 +18,12 @@ public class UpdateReaderValidator: AbstractValidator<RequestUpdateReaderJson>
         RuleFor(reader => reader.Phone).PhoneRule();
 
         RuleFor(reader => reader.DocumentNumber).CpfRule();
+
+        When(reader => !string.IsNullOrWhiteSpace(reader.City), () =>
+        {
+            RuleFor(reader => reader.City!)
+                .Must(BahiaCities.IsValid)
+                .WithMessage(ResourceMessagesException.VALIDATION_READER_CITY_INVALID);
+        });
     }
 }

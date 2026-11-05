@@ -39,6 +39,11 @@ public class UpdateReaderUseCase : IUpdateReaderUseCase
         reader.Phone = request.Phone.Trim();
         reader.DocumentNumber = SanitizeDigits(request.DocumentNumber);
 
+        if (!string.IsNullOrWhiteSpace(request.City))
+        {
+            reader.City = request.City.Trim();
+        }
+
         _readerUpdateOnlyRepository.UpdateReader(reader);
 
         await _unitOfWork.Commit();
