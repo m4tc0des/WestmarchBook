@@ -1,5 +1,20 @@
 # Changelog - WestmarchBook
 
+## [2.1.4] - 2026-11-05
+### Corrigido & Melhorado
+- **Tratamento de Erros e Validação no Login:** Eliminação do alerta genérico `"Erro desconhecido."` ao submeter campos vazios. O fluxo no cliente Desktop agora desserializa corretamente o payload de exceções do backend (`ErrorOnValidationException`), exibindo mensagens claras e precisas enviadas pela API (ex: obrigatoriedade da senha).
+- **Atalho F2 e Reutilização de Janela:** Removido o badge visual flutuante (KeyTip nativo do WinUI 3) que surgia sobre a tela. A execução do atalho global `F2` agora reaproveita a tela oficial de autenticação da instituição para bloqueio e troca de operador, eliminando a janela genérica duplicada.
+- **Limpeza de Estado em Modais (Form Reset):**
+  - **Inclusão de Empréstimos:** Correção da retenção de dados da última operação. A modal agora sempre inicializa limpa, com os seletores de leitor e exemplar desmarcados (`null`) e placeholders adequados.
+  - **Inclusão de Livros:** Os campos de seleção de Editora e Gênero deixaram de vir pré-preenchidos com o primeiro item da lista, iniciando vazios com os textos de instrução padrão.
+- **Renderização e Clipping de Pickers:** Correção de espaçamentos e dimensionamento vertical nos seletores de Gênero e Editora, resolvendo o corte visual da linha de texto quando um item era selecionado.
+- **Padronização Terminológica (Editora):** Adequação do vocabulário técnico e visual de *Publicadora* para **Editora** nas telas de cadastro, listagens e seletores, alinhando a interface aos padrões do mercado bibliotecário.
+- **Ordenação na Busca de Leitores:** Aplicação de ordenação padrão crescente por identificador único (`ID ASC`) na consulta e renderização da grade de leitores.
+- **Navegação Segura:** Padronização do botão **"Voltar"** em todas as submodais de cadastro e edição, garantindo o cancelamento limpo da ação sem retenção de estado na tela pai.
+
+### Adicionado
+- **Submodal de Gestão de Autores (N:N):** Substituição do dropdown simples por uma interface modal dedicada com listagem, busca com filtro dinâmico e suporte a múltiplos autores por obra, além de ações diretas para incluir, editar e excluir registros de autores.
+
 ## [2.1.3] - 2026-11-05
 ### Adicionado
 - **Nova Identidade Visual e Dashboard:** Redesign visual completo baseado nas cores oficiais azul e branco da Biblioteca Comunitária Filarmônica 30 de Junho. Inclusão da logomarca centralizada em alta resolução e barra lateral (*Sidebar*) escura com ícones amplos inspirados na usabilidade e fluidez do Docker Desktop.
