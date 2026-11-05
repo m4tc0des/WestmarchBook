@@ -1,5 +1,19 @@
 # Changelog - WestmarchBook
 
+## [2.1.3] - 2026-11-05
+### Adicionado
+- **Nova Identidade Visual e Dashboard:** Redesign visual completo baseado nas cores oficiais azul e branco da Biblioteca Comunitária Filarmônica 30 de Junho. Inclusão da logomarca centralizada em alta resolução e barra lateral (*Sidebar*) escura com ícones amplos inspirados na usabilidade e fluidez do Docker Desktop.
+- **Painel de Métricas Operacionais:** Dashboard inicial com 5 cards dinâmicos estruturados: *Total de Livros*, *Membros Ativos*, *Empréstimos Próximos ao Vencimento* (próximos 7 dias), *Empréstimos Vencidos* e *Leitores Bloqueados*.
+- **Barra de Status (Status Bar):** Faixa de rodapé com monitoramento em tempo real contendo dados de conexão (`Servidor: 127.0.0.1`, nome da base de dados, usuário logado em caixa alta), exibição da versão `v.2.1.3` e relógio dinâmico à direita.
+- **Navegação Inteligente por Foco (Enter):** Suporte global à navegação por teclado nos formulários (Login, Leitores, Livros e Pesquisa), permitindo transição contínua entre campos e disparo de ações automáticas ao pressionar a tecla `Enter`.
+- **Módulo de Pesquisa com Filtros:** Nova tela de busca com seleção via seletores circulares (*RadioButtons*) por Nome ou ID, exibição categorizada de metadados/gênero e listagem modal de exemplares físicos com indicadores de disponibilidade por número de registro.
+- **Empacotamento e Distribuição Standalone:** Configuração de publicação nativa via CLI (`net10.0-windows10.0.19041.0`, `self-contained`, sem empacotamento MSIX) e criação do script Inno Setup para geração do instalador executável `Instalador_Biblioteca_Filarmonica.exe`.
+
+### Corrigido & Melhorado
+- **Customização e Controle de Janelas:** Implementação de *Custom TitleBar* com o título centralizado `"USO EXCLUSIVO DA FILARMÔNICA 30 DE JUNHO"`, com bloqueio do botão nativo de maximizar/redimensionar (mantendo dimensões fixas com apenas minimizar e fechar).
+- **Proteção e Encerramento Seguro:** Remoção do botão "X" nativo da tela de autenticação e interceptação do evento de fechamento da janela principal e de login, exigindo confirmação explícita do usuário (*"Deseja realmente sair do sistema?"*) antes de finalizar o processo.
+- **Módulo de Empréstimos (Backend):** Conclusão das regras de negócio, contratos de repositório, validadores assíncronos e casos de uso para o fluxo de aluguel e retenção de leitores em atraso.
+
 ## [1.1.3] - 2026-10-30
 ### Adicionado
 - **Cadastro de Exemplares Físicos:** Adicionada a entidade de domínio BookCopy e relacionamento 1:N com Book, permitindo o registro de múltiplos números de registro (RegistrationNumber) e controle de status (CopyStatus) para cada cópia física de uma mesma obra.
