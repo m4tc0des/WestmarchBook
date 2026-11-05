@@ -34,6 +34,7 @@ public class RegisterReaderAccountUseCase : IRegisterReaderAccountUseCase
         reader.Email = request.Email.Trim();
         reader.Phone = request.Phone.Trim();
         reader.DocumentNumber = SanitizeDigits(request.DocumentNumber);
+        reader.City = request.City.Trim();
 
         await _readerWriteRepository.Add(reader);
 

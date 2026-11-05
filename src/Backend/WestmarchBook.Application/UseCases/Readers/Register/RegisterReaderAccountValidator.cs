@@ -1,5 +1,6 @@
-﻿using FluentValidation;
+using FluentValidation;
 using WestmarchBook.Communication.Requests;
+using WestmarchBook.Domain.Constants;
 using WestmarchBook.Exception;
 
 namespace WestmarchBook.Application.UseCases.Readers.Register;
@@ -26,6 +27,12 @@ public class RegisterReaderAccountValidator : AbstractValidator<RequestRegisterR
             .NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_READER_DOCUMENTNUMBER_REQUIRED)
             .Must(BeAValidCpf)
             .WithMessage(ResourceMessagesException.VALIDATION_READER_DOCUMENTNUMBER_INVALID);
+
+        RuleFor(reader => reader.City)
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_READER_CITY_REQUIRED)
+            .Must(BahiaCities.IsValid)
+            .WithMessage(ResourceMessagesException.VALIDATION_READER_CITY_INVALID);
     }
 
     private bool BeAValidCpf(string cpf)
