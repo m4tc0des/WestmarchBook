@@ -1,5 +1,6 @@
-﻿using WestmarchBook.Communication.Requests;
+using WestmarchBook.Communication.Requests;
 using WestmarchBook.Domain.Identity;
+using WestmarchBook.Domain.Repositories;
 using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Security.PasswordHashing;
 using WestmarchBook.Exception;
@@ -12,12 +13,18 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
     private readonly ILoggedUser _loggedUser;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUserUpdateOnlyRepository _updateOnlyRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ChangePasswordUseCase(ILoggedUser loggedUser, IPasswordHasher passwordHasher, IUserUpdateOnlyRepository updateOnlyRepository)
+    public ChangePasswordUseCase(
+        ILoggedUser loggedUser,
+        IPasswordHasher passwordHasher,
+        IUserUpdateOnlyRepository updateOnlyRepository,
+        IUnitOfWork unitOfWork)
     {
         _loggedUser = loggedUser;
         _passwordHasher = passwordHasher;
         _updateOnlyRepository = updateOnlyRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task Execute(RequestChangePasswordJson request)
@@ -29,6 +36,8 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
         var hashedPassword = _passwordHasher.HashPassword(request.NewPassword);
 
         await _updateOnlyRepository.UpdatePassword(loggedUser.Id, hashedPassword);
+
+        await _unitOfWork.Commit();
     }
 
     private void Validate(RequestChangePasswordJson request, Domain.Entities.User loggedUser)
@@ -37,7 +46,7 @@ public class ChangePasswordUseCase : IChangePasswordUseCase
 
         if (_passwordHasher.VerifyPassword(request.CurrentPassword, loggedUser.Password) == false)
         {
-            result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.VALIDATION_CURRENT_PASSWORD));    
+            result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.VALIDATION_CURRENT_PASSWORD));
         }
 
         if (result.IsValid == false)
