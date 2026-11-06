@@ -1,4 +1,5 @@
 using FluentValidation;
+using WestmarchBook.Application.UseCases.Shared.Validators;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Domain.Constants;
 using WestmarchBook.Exception;
@@ -12,10 +13,7 @@ public class RegisterReaderAccountValidator : AbstractValidator<RequestRegisterR
         RuleFor(reader => reader.FullName)
             .NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_READER_FULLNAME_REQUIRED);
 
-        RuleFor(reader => reader.Email)
-            .Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_EMAIL_REQUIRED)
-            .EmailAddress().WithMessage(ResourceMessagesException.VALIDATION_EMAIL_INVALID);
+        RuleFor(reader => reader.Email).EmailRule();
 
         RuleFor(reader => reader.Phone)
             .NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_READER_PHONE_REQUIRED)
