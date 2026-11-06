@@ -1,5 +1,18 @@
 # Changelog - WestmarchBook
 
+## [2.2.0] - 2026-11-06
+### Adicionado
+- **Submodal de Seleção e Edição de Leitores (Novo Empréstimo):** Substituição do dropdown simples por uma janela modal dedicada com busca dinâmica por **Nome**, **CPF**, **E-mail**, **Telefone** ou **ID**. Inclui bloqueio visual e funcional para leitores com status *Bloqueado* ou inativos, além de botão **Editar** integrado para corrigir dados cadastrais durante o atendimento.
+- **Submodal de Seleção de Livro e Exemplar Físico (Novo Empréstimo):** Fluxo de seleção em duas etapas onde o operador busca o livro (por Título, Autor, Editora ou ID) e escolhe especificamente qual cópia física (`RegistrationNumber`) será emprestada, exibindo exclusivamente exemplares com status **Disponível**.
+- **Expansão dos Filtros de Pesquisa de Livros:** Adicionados os seletores de filtro por **Autor**, **Editora** e **Gênero** tanto na tela **Pesquisar** quanto na barra de busca da aba **Livros** (complementando *Título* e *ID*).
+
+### Corrigido & Melhorado
+- **Reorganização Ergonométrica das Telas (UX):** Movimentação das barras de botões de ação (`+ Incluir`, `Editar`, `Ativar/Inativar`, `Prorrogar`, `Devolver`, `Excluir`) do topo para a parte inferior — posicionadas imediatamente acima da barra de pesquisa — nas abas **Livros**, **Leitores** e **Empréstimos**, ampliando significativamente a área vertical das grades de visualização.
+- **Barra de Pesquisa Compacta:** Ajuste na largura do campo de digitação (`Entry`) e aproximação do botão **Pesquisar** logo ao lado direito do campo nas abas de busca e listagem, reduzindo o deslocamento do mouse.
+- **Validação Rigorosa de E-mail:** Endurecimento das regras de validação no cadastro e edição de leitores e usuários para bloquear endereços e extensões de domínio malformadas (ex.: `.cokm`), exibindo o alerta de validação na interface.
+- **Ícone da Barra Lateral:** Correção do glifo de lupa no botão **Pesquisar** da *Sidebar*, alinhando-o ao padrão visual dos demais ícones do menu.
+- **Limpeza de Código (Front-end):** Remoção de comentários residuais de desenvolvimento nos arquivos `.cs` e `.xaml` do projeto `WestmarchBook.Desktop`.
+
 ## [2.1.5] - 2026-11-06
 ### Corrigido & Melhorado
 - **Performance de Consultas e Banco de Dados (EF Core / SQLite):**
