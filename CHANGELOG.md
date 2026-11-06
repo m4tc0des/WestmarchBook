@@ -1,5 +1,18 @@
 # Changelog - WestmarchBook
 
+## [2.1.5] - 2026-11-06
+### Corrigido & Melhorado
+- **Performance de Consultas e Banco de Dados (EF Core / SQLite):**
+  - **Eliminação de *N+1 Queries* em Empréstimos:** Otimizada a verificação de leitores inadimplentes em `LoadRentsAsync`, reutilizando a navegação `Reader` já carregada em memória e eliminando consultas repetidas por registro no banco.
+  - **Prevenção de Explosão Cartesiana:** Adicionado `.AsSplitQuery()` nas consultas de livros (`GetAllActive` e `GetById`) que carregam múltiplos autores e exemplares simultaneamente, além de `.AsNoTracking()` em consultas de leitura de autores.
+  - **Cache de Serialização JSON:** `JsonOptionsHelper.Default` convertido para instância estática somente-leitura (`static readonly`), evitando recriações contínuas do `JsonSerializerOptions` e reduzindo alocação de CPU/GC na leitura de gêneros.
+- **Fluidez da Interface e Gestão de Memória (.NET MAUI):**
+  - **Mapeamento Assíncrono Fora da UI Thread:** A construção e formatação das listas de Livros, Leitores e Empréstimos agora ocorrem em segundo plano antes da atualização visual, eliminando travamentos na navegação entre abas.
+  - **Correção de Vazamento de Memória (*Memory Leak*):** Implementado `IDisposable` na `MainViewModel` para encerrar adequadamente o `PeriodicTimer` do relógio da barra de status ao trocar de sessão via atalho `F2`, além de cachear o `Brush` inativo da barra lateral.
+  - **Inicialização e Recargas Otimizadas:** Removidas verificações redundantes de criação do banco SQLite no startup (`App.xaml.cs`) e chamadas duplicadas de recarga da lista de leitores após operações de empréstimo.
+- **Consistência Transacional na Troca de Senha:** Injetado `IUnitOfWork` em `ChangePasswordUseCase` com chamada explícita a `Commit()`, garantindo que a alteração de senha seja persistida diretamente na camada de aplicação.
+- **Ajuste Visual em Seletores de Empréstimo:** Corrigido o dimensionamento vertical e espaçamento do seletor (`Picker`) de *Exemplar Disponível*, impedindo que o texto selecionado fique cortado.
+
 ## [2.1.4] - 2026-11-05
 ### Corrigido & Melhorado
 - **Tratamento de Erros e Validação no Login:** Eliminação do alerta genérico `"Erro desconhecido."` ao submeter campos vazios. O fluxo no cliente Desktop agora desserializa corretamente o payload de exceções do backend (`ErrorOnValidationException`), exibindo mensagens claras e precisas enviadas pela API (ex: obrigatoriedade da senha).
