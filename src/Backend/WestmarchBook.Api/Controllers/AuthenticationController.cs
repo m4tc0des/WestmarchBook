@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.Login.WithEmailAndPassword;
+using WestmarchBook.Application.UseCases.PasswordRecovery.RequestCode;
+using WestmarchBook.Application.UseCases.PasswordRecovery.ResetPassword;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 
@@ -18,5 +20,22 @@ public class AuthenticationController : ControllerBase
         var response = await useCase.Execute(request);
 
         return Ok(response);
+    }
+
+    [HttpPost("password-recovery")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    public async Task<IActionResult> PasswordRecovery([FromBody] RequestPasswordRecoveryCodeJson request, [FromServices] IRequestPasswordRecoveryCodeUseCase useCase)
+    {
+        await useCase.Execute(request);
+
+        return Accepted();
+    }
+
+    [HttpPost("password-recovery/reset")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> ResetPassword([FromBody] RequestResetPasswordJson request, [FromServices] IResetPasswordUseCase useCase)
+    {
+        await useCase.Execute(request);
+        return NoContent();
     }
 }
