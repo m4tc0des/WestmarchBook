@@ -12,6 +12,8 @@ using WestmarchBook.Application.UseCases.Book.InactiveById;
 using WestmarchBook.Application.UseCases.Book.Register;
 using WestmarchBook.Application.UseCases.Book.Update;
 using WestmarchBook.Application.UseCases.Login.WithEmailAndPassword;
+using WestmarchBook.Application.UseCases.PasswordRecovery.RequestCode;
+using WestmarchBook.Application.UseCases.PasswordRecovery.ResetPassword;
 using WestmarchBook.Application.UseCases.Publisher.GetAll;
 using WestmarchBook.Application.UseCases.Publisher.Register;
 using WestmarchBook.Application.UseCases.Readers.GetAll;
@@ -83,6 +85,10 @@ public static class DependencyInjectionExtension
             services.AddScoped<IGetReaderByIdUseCase, GetReaderByIdUseCase>();
 
             services.AddScoped<IRegisterRentUseCase, RegisterRentUseCase>();
+
+            services.AddScoped<IRequestPasswordRecoveryCodeUseCase, RequestPasswordRecoveryCodeUseCase>();
+
+            services.AddScoped<IResetPasswordUseCase, ResetPasswordUseCase>();
         }
     }
 }
