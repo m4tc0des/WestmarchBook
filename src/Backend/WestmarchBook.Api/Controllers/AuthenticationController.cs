@@ -1,5 +1,4 @@
-﻿ using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.Login.WithEmailAndPassword;
 using WestmarchBook.Application.UseCases.PasswordRecovery.RequestCode;
 using WestmarchBook.Application.UseCases.PasswordRecovery.ResetPassword;
@@ -12,7 +11,7 @@ namespace WestmarchBook.Api.Controllers;
 [ApiController]
 public class AuthenticationController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("login")]
     [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] RequestLoginJson request, [FromServices] ILoginWithEmailAndPasswordUseCase useCase)
