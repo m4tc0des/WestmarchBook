@@ -19,21 +19,18 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
     private readonly IVerificationCodeWriteOnlyRepository _verificationCodeWriteRepository; 
     private readonly IVerificationCodeReadOnlyRepository _verificationCodeReadRepository;
     private readonly IUserUpdateOnlyRepository _userUpdateRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
     public ResetPasswordUseCase(IUserReadOnlyRepository userReadRepository,
         IPasswordHasher passwordHasher,
         IVerificationCodeWriteOnlyRepository verificationCodeWriteRepository,
         IVerificationCodeReadOnlyRepository verificationCodeReadRepository,
-        IUserUpdateOnlyRepository userUpdateRepository,
-        IUnitOfWork unitOfWork)
+        IUserUpdateOnlyRepository userUpdateRepository)
     {
         _userReadRepository = userReadRepository;
         _passwordHasher = passwordHasher;
         _verificationCodeWriteRepository = verificationCodeWriteRepository;
         _verificationCodeReadRepository = verificationCodeReadRepository;
         _userUpdateRepository = userUpdateRepository;
-        _unitOfWork = unitOfWork;
     }
 
     public async Task Execute(RequestResetPasswordJson request)
@@ -42,14 +39,14 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
 
         if (user is null)
         {
-            throw new ErrorOnValidationException([ResourceMessagesException.VERIFICADION_CODE_INVALID]);
+            throw new ErrorOnValidationException([ResourceMessagesException.VERIFICATION_CODE_INVALID]);
         }
 
         var verificationCode = await _verificationCodeReadRepository.GetCode(user.Id, request.Code, VerificationCodeType.PasswordRecovery);
 
         if (verificationCode is null)
         {
-            throw new ErrorOnValidationException([ResourceMessagesException.VERIFICADION_CODE_INVALID]);
+            throw new ErrorOnValidationException([ResourceMessagesException.VERIFICATION_CODE_INVALID]);
         }
 
         ValidateAndThrowOnFailures(request, verificationCode);
@@ -65,7 +62,7 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
 
         if (isCodeValid == false)
         {
-            throw new ErrorOnValidationException([ResourceMessagesException.VERIFICADION_CODE_INVALID]);
+            throw new ErrorOnValidationException([ResourceMessagesException.VERIFICATION_CODE_INVALID]);
         }
 
         var result = new ResetPasswordValidator().Validate(request);
