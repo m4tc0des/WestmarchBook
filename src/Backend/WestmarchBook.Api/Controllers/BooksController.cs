@@ -20,9 +20,9 @@ public class BooksController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisterBookJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Register([FromBody] RequestRegisterBookJson request, [FromServices] IRegisterBookUseCase useCase)
+    public async Task<IActionResult> Register([FromForm] RequestRegisterBookJson request, [FromServices] IRegisterBookUseCase useCase, IFormFile? bookIllustration)
     {
-        var result = await useCase.Execute(request);
+        var result = await useCase.Execute(request, bookIllustration?.OpenReadStream());
 
         return Created(string.Empty, result);
     }
