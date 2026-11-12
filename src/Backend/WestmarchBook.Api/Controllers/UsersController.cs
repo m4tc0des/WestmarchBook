@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WestmarchBook.Application.UseCases.User.ChangePassword;
+using WestmarchBook.Application.UseCases.User.ChangeProfilePicture;
 using WestmarchBook.Application.UseCases.User.Profile;
 using WestmarchBook.Application.UseCases.User.Register;
 using WestmarchBook.Application.UseCases.User.Update;
@@ -51,6 +52,17 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> UpdatePassword([FromBody] RequestChangePasswordJson request, [FromServices] IChangePasswordUseCase useCase)
     {
         await useCase.Execute(request);
+
+        return NoContent();
+    }
+
+    [HttpPut("profile-picture")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ChangeProfilePicture([FromServices] IChangeProfilePictureUseCase useCase, IFormFile profilePicture)
+    {
+        await useCase.Execute(profilePicture.OpenReadStream());
 
         return NoContent();
     }
