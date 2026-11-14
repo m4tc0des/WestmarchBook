@@ -1,4 +1,5 @@
 using Mapster;
+using WestmarchBook.Application.Extensions;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Repositories;
@@ -32,11 +33,21 @@ public class RegisterBookUseCase : IRegisterBookUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ResponseRegisterBookJson> Execute(RequestRegisterBookJson request)
+    public async Task<ResponseRegisterBookJson> Execute(RequestRegisterBookJson request, Stream? bookIllustration)
     {
         await ValidateAndThrowOnFailures(request);
 
         var book = request.Adapt<Domain.Entities.Book>();
+
+        if(bookIllustration is not null)
+        {
+            var contentType = bookIllustration.DetectImageContentType();
+
+            if (contentType is null)
+            {
+                throw new ErrorOnValidationException([ResourceMessagesException.VALIDATION_ONLY_IMAGES_ACCEPTED]);
+            }
+        }
 
         await _bookRepository.Add(book);
 

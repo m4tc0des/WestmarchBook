@@ -5,5 +5,5 @@ namespace WestmarchBook.Application.UseCases.Book.Register;
 
 public interface IRegisterBookUseCase
 {
-    Task<ResponseRegisterBookJson> Execute(RequestRegisterBookJson request);
+    Task<ResponseRegisterBookJson> Execute(RequestRegisterBookJson request, Stream? bookIllustration);
 }
