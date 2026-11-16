@@ -4,7 +4,7 @@ using WestmarchBook.Domain.Entities;
 using WestmarchBook.Domain.Repositories;
 using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Repositories.VerificationCode;
-using WestmarchBook.Domain.Security.EmailService;
+using WestmarchBook.Domain.Services.EmailService;
 
 namespace WestmarchBook.Application.UseCases.PasswordRecovery.RequestCode;
 
