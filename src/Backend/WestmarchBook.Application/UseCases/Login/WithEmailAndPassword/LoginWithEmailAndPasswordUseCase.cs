@@ -3,6 +3,7 @@ using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Repositories.User;
 using WestmarchBook.Domain.Security.PasswordHashing;
 using WestmarchBook.Domain.Security.Tokens;
+using WestmarchBook.Domain.Services.StorageService;
 using WestmarchBook.Exception;
 using WestmarchBook.Exception.ExceptionsBase;
 
@@ -13,19 +14,22 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
     private readonly IUserReadOnlyRepository _userReadRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
+    private readonly IStorageService _storageService;
 
     public LoginWithEmailAndPasswordUseCase(IUserReadOnlyRepository userReadRepository,
         IPasswordHasher passwordHasher,
-        IAccessTokenGenerator accessTokenGenerato)
+        IAccessTokenGenerator accessTokenGenerato,
+        IStorageService storageService)
     {
         _userReadRepository = userReadRepository;
         _passwordHasher = passwordHasher;
         _accessTokenGenerator = accessTokenGenerato;
+        _storageService = storageService;
     }
 
     public async Task<ResponseRegisterUserJson> Execute(RequestLoginJson request)
     {
-        Validate(request);
+        ValidateAndThrowOnFailures(request);
 
         var user = await _userReadRepository.GetByEmail(request.Email);
 
@@ -38,6 +42,7 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
         return new ResponseRegisterUserJson
         {
             UserName = user.UserName,
+            ImageUrl = _storageService.GetProfilePictureUrl(user),
             Tokens = new ResponseTokensJson
             {
                 AccessToken = _accessTokenGenerator.Generate(user)
@@ -45,7 +50,7 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
         };
     }
 
-    private static void Validate(RequestLoginJson request)
+    private static void ValidateAndThrowOnFailures(RequestLoginJson request)
     {
         var errors = new List<string>();
 
