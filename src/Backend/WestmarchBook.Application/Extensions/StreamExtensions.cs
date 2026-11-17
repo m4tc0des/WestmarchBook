@@ -12,18 +12,22 @@ public static class StreamExtensions
             return null;
         }
 
-        string? contentType = null;
+        string? result = null;
 
         if (stream.Is<PortableNetworkGraphic>())
         {
-            contentType = "image/png";
+            result = "image/png";
         }
-
-        else if(stream.Is<JointPhotographicExpertsGroup>())
+        else if (stream.Is<JointPhotographicExpertsGroup>())
         {
-            contentType = "image/jpeg";
+            result = "image/jpeg";
         }
 
-        return contentType;
+        if (stream.CanSeek)
+        {
+            stream.Position = 0;
+        }
+
+        return result;
     }
 }
