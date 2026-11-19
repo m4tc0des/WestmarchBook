@@ -7,6 +7,7 @@ using WestmarchBook.Application.UseCases.Book.GetById;
 using WestmarchBook.Application.UseCases.Book.InactiveById;
 using WestmarchBook.Application.UseCases.Book.Register;
 using WestmarchBook.Application.UseCases.Book.Update;
+using WestmarchBook.Application.UseCases.Book.ChangeIllustration;
 using WestmarchBook.Communication.Requests;
 using WestmarchBook.Communication.Responses;
 
@@ -18,11 +19,12 @@ namespace WestmarchBook.Api.Controllers;
 public class BooksController : ControllerBase
 {
     [HttpPost]
+    [Consumes("multipart/form-data")]
     [ProducesResponseType(typeof(ResponseRegisterBookJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Register([FromForm] RequestRegisterBookJson request, [FromServices] IRegisterBookUseCase useCase, IFormFile? bookIllustration)
+    public async Task<IActionResult> Register([FromForm] RequestRegisterBookJson request, [FromServices] IRegisterBookUseCase useCase)
     {
-        var result = await useCase.Execute(request, bookIllustration?.OpenReadStream());
+        var result = await useCase.Execute(request, request.BookIllustration?.OpenReadStream());
 
         return Created(string.Empty, result);
     }
@@ -83,5 +85,16 @@ public class BooksController : ControllerBase
     {
         var result = await useCase.Execute(request);
         return Ok(result);
+    }
+
+    [HttpPut("{id}/illustration")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UploadCover([FromRoute] long id, [FromServices] IChangeIllustrationUseCase useCase, IFormFile? bookIllustration)
+    {
+        await useCase.Execute(id, bookIllustration?.OpenReadStream() ?? Stream.Null);
+
+        return NoContent();
     }
 }
