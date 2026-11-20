@@ -183,12 +183,6 @@
   <data name="VALIDATION_BOOK_GENRE_INVALID" xml:space="preserve">
     <value>O gênero informado é inválido.</value>
   </data>
-  <data name="VALIDATION_BOOK_LANGUAGES_REQUIRED" xml:space="preserve">
-    <value>Ao menos um idioma deve ser informado.</value>
-  </data>
-  <data name="VALIDATION_BOOK_LANGUAGE_INVALID" xml:space="preserve">
-    <value>O idioma informado é inválido.</value>
-  </data>
   <data name="VALIDATION_BOOK_TITLE_MAX_LENGTH" xml:space="preserve">
     <value>O título do livro não pode ter mais de 150 caracteres.</value>
   </data>
@@ -213,7 +207,109 @@
   <data name="VALIDATION_BOOK_GENRES_DUPLICATED" xml:space="preserve">
     <value>Não é permitido informar gêneros duplicados.</value>
   </data>
-  <data name="VALIDATION_BOOK_LANGUAGES_DUPLICATED" xml:space="preserve">
-    <value>Não é permitido informar idiomas duplicados.</value>
+  <data name="VALIDATION_READER_CITY_REQUIRED" xml:space="preserve">
+    <value>A cidade é obrigatória.</value>
+  </data>
+  <data name="VALIDATION_READER_CITY_INVALID" xml:space="preserve">
+    <value>A cidade deve ser um município válido da Bahia.</value>
+  </data>
+  <data name="VALIDATION_BOOK_TITLE_ALREADY_EXISTS" xml:space="preserve">
+    <value>O título informado já existe.</value>
+  </data>
+  <data name="VALIDATION_AUTHOR_NAME_ALREADY_EXISTS" xml:space="preserve">
+    <value>O author informado já existe.</value>
+  </data>
+  <data name="VALIDATION_PUBLISHER_NAME_ALREADY_EXISTS" xml:space="preserve">
+    <value>A publicadora informada já existe.</value>
+  </data>
+  <data name="VALIDATION_BOOK_NOT_FOUND" xml:space="preserve">
+    <value>Não conseguimos encontrar este livro.</value>
+  </data>
+  <data name="VALIDATION_AUTHOR_NOT_FOUND" xml:space="preserve">
+    <value>Não conseguimos encontrar este author.</value>
+  </data>
+  <data name="VALIDATION_PUBLISHER_NOT_FOUND" xml:space="preserve">
+    <value>Não conseguimos encontrar esta publicadora.</value>
+  </data>
+  <data name="VALIDATION_READER_FULLNAME_REQUIRED" xml:space="preserve">
+    <value>O nome do leitor é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_READER_PHONE_REQUIRED" xml:space="preserve">
+    <value>O telefone é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_READER_PHONE_INVALID" xml:space="preserve">
+    <value>O telefone está inválido.</value>
+  </data>
+  <data name="VALIDATION_READER_DOCUMENTNUMBER_REQUIRED" xml:space="preserve">
+    <value>O CPF é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_READER_DOCUMENTNUMBER_INVALID" xml:space="preserve">
+    <value>O numero de CPF informado é inválido.</value>
+  </data>
+  <data name="VALIDATION_READER_DOCUMENTNUMBER_ALREADY_EXISTS" xml:space="preserve">
+    <value>O CPF informado já está em uso.</value>
+  </data>
+  <data name="VALIDATION_READER_NOT_FOUND" xml:space="preserve">
+    <value>Leitor não encontrado.</value>
+  </data>
+  <data name="VALIDATION_READER_ID_INVALID" xml:space="preserve">
+    <value>Código de leitor inválido.</value>
+  </data>
+  <data name="READER_FORM_TITLE_CREATE" xml:space="preserve">
+    <value>Inclusão de Leitores</value>
+  </data>
+  <data name="READER_FORM_TITLE_EDIT" xml:space="preserve">
+    <value>Alteração de Leitor</value>
+  </data>
+  <data name="BOOK_FORM_TITLE_CREATE" xml:space="preserve">
+    <value>Inclusão de Livros</value>
+  </data>
+  <data name="BOOK_FORM_TITLE_EDIT" xml:space="preserve">
+    <value>Alteração de Livros</value>
+  </data>
+  <data name="FEATURE_IN_DEVELOPMENT" xml:space="preserve">
+    <value>Esta função está em desenvolvimento.</value>
+  </data>
+  <data name="VALIDATION_BOOK_REGISTRATIONNUMBER_REQUIRED" xml:space="preserve">
+    <value>O número de registro é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_RENT_READER_REQUIRED" xml:space="preserve">
+    <value>O leitor é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_RENT_BOOK_COPY_REQUIRED" xml:space="preserve">
+    <value>O número de registro é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_RENT_EXPECTED_RETURN_DATE_FUTURE" xml:space="preserve">
+    <value>A data de devolução não pode ser inferior a atual.</value>
+  </data>
+  <data name="VALIDATION_RENT_EXPECTED_RETURN_DATE_REQUIRED" xml:space="preserve">
+    <value>Data de devolução é obrigatória.</value>
+  </data>
+  <data name="VALIDATION_BOOK_COPY_NOT_AVAILABLE" xml:space="preserve">
+    <value>Copia de livro não disponivel.</value>
+  </data>
+  <data name="VALIDATION_BOOK_COPY_NOT_FOUND" xml:space="preserve">
+    <value>Cópia do livro não encontrada.</value>
+  </data>
+  <data name="VERIFICATION_CODE_INVALID" xml:space="preserve">
+    <value>Código de verificação inválido ou expirado.</value>
+  </data>
+  <data name="VALIDATION_ONLY_IMAGES_ACCEPTED" xml:space="preserve">
+    <value>Apenas imagens PNG ou JPG serão aceitas.</value>
+  </data>
+  <data name="RENT_NOT_FOUND" xml:space="preserve">
+    <value>Empréstimo não encontrado.</value>
+  </data>
+  <data name="RENT_ALREADY_RETURNED" xml:space="preserve">
+    <value>Este empréstimo já foi devolvido.</value>
+  </data>
+  <data name="VALIDATION_PASSWORD_CONFIRMATION_MISMATCH" xml:space="preserve">
+    <value>As senhas informadas não coincidem.</value>
+  </data>
+  <data name="VALIDATION_AUTHOR_HAS_LINKED_BOOKS" xml:space="preserve">
+    <value>Este autor não pode ser excluído pois possui livros vinculados.</value>
+  </data>
+  <data name="VALIDATION_PUBLISHER_HAS_LINKED_BOOKS" xml:space="preserve">
+    <value>Esta publicadora não pode ser excluída pois possui livros vinculados.</value>
   </data>
 </root>
