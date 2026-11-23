@@ -3,5 +3,6 @@
 public class ResponseRegisterUserJson
 {
     public string UserName { get; set; } = string.Empty;
+    public string ImageUrl { get; set; } = string.Empty;
     public ResponseTokensJson Tokens { get; set; } = new ResponseTokensJson();
 }
