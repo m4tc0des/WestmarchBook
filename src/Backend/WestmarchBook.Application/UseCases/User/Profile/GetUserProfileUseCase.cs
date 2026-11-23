@@ -1,5 +1,4 @@
-﻿using Mapster;
-using WestmarchBook.Communication.Responses;
+﻿using WestmarchBook.Communication.Responses;
 using WestmarchBook.Domain.Identity;
 using WestmarchBook.Domain.Services.StorageService;
 
@@ -19,10 +18,11 @@ public class GetUserProfileUseCase : IGetUserProfileUseCase
     {
         var loggedUser = await _loggedUser.GetProfile();
 
-        var response = loggedUser.Adapt<ResponseUserProfileJson>();
-
-        response.ImageUrl = _storageService.GetProfilePictureUrl(loggedUser);
-
-        return response;
+        return new ResponseUserProfileJson
+        {
+            UserName = loggedUser.UserName,
+            Email = loggedUser.Email,
+            ImageUrl = loggedUser.HasImage ? _storageService.GetProfilePictureUrl(loggedUser.Id) : string.Empty
+        };
     }
 }

@@ -42,7 +42,7 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
         return new ResponseRegisterUserJson
         {
             UserName = user.UserName,
-            ImageUrl = _storageService.GetProfilePictureUrl(user),
+            ImageUrl = user.HasImage ? _storageService.GetProfilePictureUrl(user.Id) : string.Empty,
             Tokens = new ResponseTokensJson
             {
                 AccessToken = _accessTokenGenerator.Generate(user)
