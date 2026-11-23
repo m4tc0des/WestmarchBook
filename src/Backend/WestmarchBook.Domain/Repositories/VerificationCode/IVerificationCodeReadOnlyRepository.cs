@@ -2,5 +2,6 @@
 
 public interface IVerificationCodeReadOnlyRepository
 {
-    Task<Entities.VerificationCode?> GetCode(long userId, string code, Enums.VerificationCodeType type); 
+    Task<Entities.VerificationCode?> GetCode(long userId, string code, Enums.VerificationCodeType type);
+    Task<Entities.VerificationCode?> GetExternalLoginCode(string code);
 }
