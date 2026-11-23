@@ -5,6 +5,7 @@ namespace WestmarchBook.Domain.Entities;
 public class Book : EntityBase
 {
     public string Title { get; set; } = string.Empty;
+    public bool HasImage { get; set; } = false;
     public string Description { get; set; } = string.Empty;
     public ICollection<BookAuthor> BookAuthors { get; set; } = [];
     public ICollection<BookCopy> BookCopies { get; set; } = [];
@@ -12,4 +13,5 @@ public class Book : EntityBase
     public Publisher Publisher { get; set; } = null!;
     public DateTime PublicationDate { get; set; }
     public ICollection<Genre> Genres { get; set; } = [];
+
 }
