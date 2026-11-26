@@ -1,6 +1,6 @@
 # WestmarchBook
 
-Sistema completo de gerenciamento de biblioteca — controle de acervo, exemplares físicos, leitores, empréstimos e autenticação — construído com **Clean Architecture** e **.NET 10** (API RESTful + aplicativo Desktop).
+Sistema completo de gerenciamento de biblioteca, com controle de acervo, exemplares físicos, leitores, empréstimos e autenticação, construído com **Clean Architecture** e **.NET 10** (API RESTful + aplicativo Desktop).
 
 ---
 
@@ -33,10 +33,10 @@ O **WestmarchBook** centraliza a operação de uma biblioteca desde o cadastro d
 
 ## Estrutura da Solução
 
-* `src/Backend/` — Camadas da API (`Domain`, `Application`, `Infrastructure`, `Api`)
-* `src/Shared/` — Contratos de comunicação (`Communication`) e exceções/mensagens localizadas (`Exception`)
-* `src/Frontend/WestmarchBook.Desktop/` — Aplicativo desktop em .NET MAUI
-* `tests/` — Projetos de testes (`Validators.Tests`, `UseCases.Tests`, `WebApi.Tests`, `Desktop.Tests` e `CommonTestUtilities`)
+* `src/Backend/` - Camadas da API (`Domain`, `Application`, `Infrastructure`, `Api`)
+* `src/Shared/` - Contratos de comunicação (`Communication`) e exceções/mensagens localizadas (`Exception`)
+* `src/Frontend/WestmarchBook.Desktop/` - Aplicativo desktop em .NET MAUI
+* `tests/` - Projetos de testes (`Validators.Tests`, `UseCases.Tests`, `WebApi.Tests`, `Desktop.Tests` e `CommonTestUtilities`)
 
 ---
 
