@@ -79,6 +79,15 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sua sessão expirou. Faça login novamente..
+        /// </summary>
+        public static string EXPIRED_REFRESH_TOKEN {
+            get {
+                return ResourceManager.GetString("EXPIRED_REFRESH_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Esta função está em desenvolvimento..
         /// </summary>
         public static string FEATURE_IN_DEVELOPMENT {
@@ -106,6 +115,24 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Este empréstimo já foi devolvido..
+        /// </summary>
+        public static string RENT_ALREADY_RETURNED {
+            get {
+                return ResourceManager.GetString("RENT_ALREADY_RETURNED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empréstimo não encontrado..
+        /// </summary>
+        public static string RENT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("RENT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Erro desconhecido..
         /// </summary>
         public static string UNKNOWN_ERROR {
@@ -120,6 +147,15 @@ namespace WestmarchBook.Exception {
         public static string VALIDATION_ACCESS_TOKEN_REQUIRED {
             get {
                 return ResourceManager.GetString("VALIDATION_ACCESS_TOKEN_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este autor não pode ser excluído pois possui livros vinculados..
+        /// </summary>
+        public static string VALIDATION_AUTHOR_HAS_LINKED_BOOKS {
+            get {
+                return ResourceManager.GetString("VALIDATION_AUTHOR_HAS_LINKED_BOOKS", resourceCulture);
             }
         }
         
@@ -367,6 +403,15 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to As senhas informadas não coincidem..
+        /// </summary>
+        public static string VALIDATION_PASSWORD_CONFIRMATION_MISMATCH {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_CONFIRMATION_MISMATCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A senha deve conter ao menos uma letra minuscula..
         /// </summary>
         public static string VALIDATION_PASSWORD_LOWERCASE {
@@ -408,6 +453,15 @@ namespace WestmarchBook.Exception {
         public static string VALIDATION_PASSWORD_UPPERCASE {
             get {
                 return ResourceManager.GetString("VALIDATION_PASSWORD_UPPERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esta publicadora não pode ser excluída pois possui livros vinculados..
+        /// </summary>
+        public static string VALIDATION_PUBLISHER_HAS_LINKED_BOOKS {
+            get {
+                return ResourceManager.GetString("VALIDATION_PUBLISHER_HAS_LINKED_BOOKS", resourceCulture);
             }
         }
         
@@ -597,36 +651,6 @@ namespace WestmarchBook.Exception {
         public static string VERIFICATION_CODE_INVALID {
             get {
                 return ResourceManager.GetString("VERIFICATION_CODE_INVALID", resourceCulture);
-            }
-        }
-
-        public static string RENT_NOT_FOUND {
-            get {
-                return ResourceManager.GetString("RENT_NOT_FOUND", resourceCulture);
-            }
-        }
-
-        public static string RENT_ALREADY_RETURNED {
-            get {
-                return ResourceManager.GetString("RENT_ALREADY_RETURNED", resourceCulture);
-            }
-        }
-
-        public static string VALIDATION_PASSWORD_CONFIRMATION_MISMATCH {
-            get {
-                return ResourceManager.GetString("VALIDATION_PASSWORD_CONFIRMATION_MISMATCH", resourceCulture);
-            }
-        }
-
-        public static string VALIDATION_AUTHOR_HAS_LINKED_BOOKS {
-            get {
-                return ResourceManager.GetString("VALIDATION_AUTHOR_HAS_LINKED_BOOKS", resourceCulture);
-            }
-        }
-
-        public static string VALIDATION_PUBLISHER_HAS_LINKED_BOOKS {
-            get {
-                return ResourceManager.GetString("VALIDATION_PUBLISHER_HAS_LINKED_BOOKS", resourceCulture);
             }
         }
     }
