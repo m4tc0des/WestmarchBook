@@ -50,18 +50,18 @@ Sistema completo de gerenciamento de acervo literário, leitores e empréstimos,
 
 ## Estrutura do Projeto
 
-* `src/Backend/WestmarchBook.Api` — API RESTful, autenticação JWT/Google, `UseRefreshTokenUseCase` e `DeleteUserAccountConsumer`.
-* `src/Backend/WestmarchBook.Application` — Casos de uso, mapeamentos (Mapster) e validadores (FluentValidation).
-* `src/Backend/WestmarchBook.Domain` — Entidades (`Book`, `BookCopy`, `Author`, `Publisher`, `Reader`, `Rent`, `User`, `RefreshToken`, `VerificationCode`), enums, DTOs e contratos.
-* `src/Backend/WestmarchBook.Infrastructure` — `WestmarchBookDbContext` (MySQL/SQLite), repositórios, migrações, Argon2id, tokens JWT/RefreshToken, RabbitMQ, Brevo e Azure Blob Storage.
-* `src/Shared/WestmarchBook.Communication` — Contratos de requisição/resposta.
-* `src/Shared/WestmarchBook.Exception` — Exceções de domínio e recursos de mensagens localizadas (`ResourceMessagesException`).
-* `src/Frontend/WestmarchBook.Desktop` — Aplicação desktop multiplataforma construída em .NET MAUI.
-* `tests/CommonTestUtilities` — Builders e utilitários compartilhados de teste.
-* `tests/Validators.Tests` — Testes de unidade dos validadores.
-* `tests/UseCases.Tests` — Testes de unidade dos casos de uso (incluindo fluxo de `RefreshToken` e exclusão de conta).
-* `tests/WebApi.Tests` — Testes de integração HTTP end-to-end com `WebApplicationFactory` e Testcontainers MySQL.
-* `tests/Desktop.Tests` — Testes de unidade das ViewModels e serviços do aplicativo Desktop.
+* `src/Backend/WestmarchBook.Api` - API RESTful, autenticação JWT/Google, `UseRefreshTokenUseCase` e `DeleteUserAccountConsumer`.
+* `src/Backend/WestmarchBook.Application` - Casos de uso, mapeamentos (Mapster) e validadores (FluentValidation).
+* `src/Backend/WestmarchBook.Domain` - Entidades (`Book`, `BookCopy`, `Author`, `Publisher`, `Reader`, `Rent`, `User`, `RefreshToken`, `VerificationCode`), enums, DTOs e contratos.
+* `src/Backend/WestmarchBook.Infrastructure` - `WestmarchBookDbContext` (MySQL/SQLite), repositórios, migrações, Argon2id, tokens JWT/RefreshToken, RabbitMQ, Brevo e Azure Blob Storage.
+* `src/Shared/WestmarchBook.Communication` - Contratos de requisição/resposta.
+* `src/Shared/WestmarchBook.Exception` - Exceções de domínio e recursos de mensagens localizadas (`ResourceMessagesException`).
+* `src/Frontend/WestmarchBook.Desktop` - Aplicação desktop multiplataforma construída em .NET MAUI.
+* `tests/CommonTestUtilities` - Builders e utilitários compartilhados de teste.
+* `tests/Validators.Tests` - Testes de unidade dos validadores.
+* `tests/UseCases.Tests` - Testes de unidade dos casos de uso (incluindo fluxo de `RefreshToken` e exclusão de conta).
+* `tests/WebApi.Tests` - Testes de integração HTTP end-to-end com `WebApplicationFactory` e Testcontainers MySQL.
+* `tests/Desktop.Tests` - Testes de unidade das ViewModels e serviços do aplicativo Desktop.
 
 ---
 
