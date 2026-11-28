@@ -13,14 +13,32 @@ public class IUserReadOnlyRepositoryBuilder
         _mock = new Mock<IUserReadOnlyRepository>();
     }
 
-    public void ExistActiveUserWithEmail(string email)
+    public IUserReadOnlyRepositoryBuilder ExistActiveUserWithEmail(string email)
     {
         _mock.Setup(options => options.ExisteActiveUserWithEmail(email)).ReturnsAsync(true);
+
+        return this;
     }
 
-    public void GetByEmail(User user)
+    public IUserReadOnlyRepositoryBuilder GetByEmail(User user)
     {
         _mock.Setup(options => options.GetByEmail(user.Email)).ReturnsAsync(user);
+
+        return this;
+    }
+
+    public IUserReadOnlyRepositoryBuilder GetById(User user)
+    {
+        _mock.Setup(options => options.GetById(user.Id)).ReturnsAsync(user);
+
+        return this;
+    }
+
+    public IUserReadOnlyRepositoryBuilder GetByIdForDeletion(User user)
+    {
+        _mock.Setup(options => options.GetByIdForDeletion(user.Id)).ReturnsAsync(user);
+
+        return this;
     }
 
     public IUserReadOnlyRepository Build()
