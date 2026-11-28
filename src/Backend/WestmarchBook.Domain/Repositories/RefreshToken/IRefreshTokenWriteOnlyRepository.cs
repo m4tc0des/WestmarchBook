@@ -3,4 +3,5 @@
 public interface IRefreshTokenWriteOnlyRepository
 {
     Task Replace(Entities.RefreshToken refreshToken);
+    Task DeleteByToken(string refreshToken);
 }

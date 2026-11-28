@@ -31,4 +31,11 @@ internal sealed class RefreshTokenRepository: IRefreshTokenWriteOnlyRepository, 
 
         await _dbContext.RefreshTokens.AddAsync(refreshToken);
     }
+
+    public async Task DeleteByToken(string refreshToken)
+    {
+        await _dbContext.RefreshTokens
+            .Where(token => token.Value.Equals(refreshToken))
+            .ExecuteDeleteAsync();
+    }
 }
