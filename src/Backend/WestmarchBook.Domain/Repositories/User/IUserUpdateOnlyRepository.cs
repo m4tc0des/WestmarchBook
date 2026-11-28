@@ -4,4 +4,5 @@ public interface IUserUpdateOnlyRepository
 {
     void UpdateProfile(Entities.User user);
     Task UpdatePassword(long userId, string passwordHash);
+    Task UpdateProfilePictureStatus(long userId, bool hasProfilePicture);
 }
