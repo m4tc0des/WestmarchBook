@@ -315,4 +315,19 @@
   <data name="EXPIRED_REFRESH_TOKEN" xml:space="preserve">
     <value>Sua sessão expirou. Faça login novamente.</value>
   </data>
+  <data name="VALIDATION_GENRE_NAME_REQUIRED" xml:space="preserve">
+    <value>O nome do gênero é obrigatório.</value>
+  </data>
+  <data name="VALIDATION_GENRE_NAME_MAX_LENGTH" xml:space="preserve">
+    <value>O nome do gênero não deve ultrapassar 100 caracteres.</value>
+  </data>
+  <data name="VALIDATION_GENRE_NAME_ALREADY_EXISTS" xml:space="preserve">
+    <value>O gênero informado já existe.</value>
+  </data>
+  <data name="VALIDATION_GENRE_NOT_FOUND" xml:space="preserve">
+    <value>Não conseguimos encontrar este gênero.</value>
+  </data>
+  <data name="VALIDATION_GENRE_HAS_LINKED_BOOKS" xml:space="preserve">
+    <value>Este gênero não pode ser excluído pois possui livros vinculados.</value>
+  </data>
 </root>

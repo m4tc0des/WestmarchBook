@@ -646,6 +646,51 @@ namespace WestmarchBook.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Este gênero não pode ser excluído pois possui livros vinculados..
+        /// </summary>
+        public static string VALIDATION_GENRE_HAS_LINKED_BOOKS {
+            get {
+                return ResourceManager.GetString("VALIDATION_GENRE_HAS_LINKED_BOOKS", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to O gênero informado já existe..
+        /// </summary>
+        public static string VALIDATION_GENRE_NAME_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("VALIDATION_GENRE_NAME_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to O nome do gênero não deve ultrapassar 100 caracteres..
+        /// </summary>
+        public static string VALIDATION_GENRE_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("VALIDATION_GENRE_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to O nome do gênero é obrigatório..
+        /// </summary>
+        public static string VALIDATION_GENRE_NAME_REQUIRED {
+            get {
+                return ResourceManager.GetString("VALIDATION_GENRE_NAME_REQUIRED", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Não conseguimos encontrar este gênero..
+        /// </summary>
+        public static string VALIDATION_GENRE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("VALIDATION_GENRE_NOT_FOUND", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Código de verificação inválido ou expirado..
         /// </summary>
         public static string VERIFICATION_CODE_INVALID {
